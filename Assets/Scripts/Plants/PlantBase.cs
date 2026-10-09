@@ -3,13 +3,13 @@ using UnityEngine;
 
 public abstract class PlantBase : MonoBehaviour, ITakeDamage
 {
-    protected int plantId;
-    protected PlantType plantType;
-    protected float currentHealth;
+    [SerializeField] protected int plantId;
+    [SerializeField] protected PlantType plantType;
+    [SerializeField] protected float currentHealth;
     public bool isAlive { get; private set; }
-    protected virtual void Init() 
+    public virtual void Init() 
     {
-
+        isAlive = true;
     }
 
     public void TakeDamage(float damage)

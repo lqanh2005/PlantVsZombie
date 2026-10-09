@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-[CreateAssetMenu(fileName = "SunProducerData", menuName = "Plants/SunProducerData")]    
+[CreateAssetMenu(fileName = "SunProducerDataList", menuName = "Plants/SunProducerDataList")]    
 public class SunProducerDataList : ScriptableObject
 {
     public List<SunProducerData> sunProducerDataList = new List<SunProducerData>();

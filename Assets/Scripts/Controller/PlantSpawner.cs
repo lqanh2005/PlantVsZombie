@@ -70,6 +70,7 @@ public class PlantSpawner : MonoBehaviour
             spawnPosition,
             Quaternion.identity
         );
+        plant.GetComponent<PlantBase>().Init();
 
         if (plant == null)
             return false;

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 253468518995114524}
   - component: {fileID: 6198984037340583022}
   - component: {fileID: 5593945557454970410}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Wallnut
   m_TagString: Plant
   m_Icon: {fileID: 0}

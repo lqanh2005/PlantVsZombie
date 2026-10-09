@@ -7,10 +7,12 @@ public class ShooterPlantBase : PlantBase
     [SerializeField] private Transform firePoint;
     private float attackTimer;
 
-    protected override void Init()
+    public override void Init()
     {
         base.Init();
-        shooterPlantData = (ShooterPlantData)PlantDatabase.Instance.GetPlantDataByType(plantType, plantId);
+        shooterPlantData = (ShooterPlantData)PlantDatabase.Instance.GetPlantDataByType(plantType, plantId-1);
+        currentHealth = shooterPlantData.health;
+        attackTimer = shooterPlantData.attackCooldown;
     }
     protected virtual void Update()
     {
@@ -28,7 +30,7 @@ public class ShooterPlantBase : PlantBase
     protected virtual bool CanAttack()
     {
         // TODO: Kiểm tra có Zombie trong tầm bắn hay không.
-        return false;
+        return true;
     }
 
     protected virtual void Shoot()

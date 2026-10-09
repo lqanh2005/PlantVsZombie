@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Sunflower : PlantBase
+public class Sunflower : SunProducerPlantBase
 {
 
 }
