@@ -5,8 +5,7 @@ public class EnemyData
     [Header("Thông tin")]
     public int enemyId;
     public string enemyName;
-    public Sprite icon;
-    public PlantType enemyType;
+    public EnemyType enemyType;
 
     [Header("Prefab trong game")]
     public GameObject enemyPrefab;
@@ -15,5 +14,12 @@ public class EnemyData
     public float health;
     public float speed;
     public float armor;
-    public float rechargeTime;
+}
+
+public enum EnemyType
+{
+    Melee,
+    Ranged,
+    Tank,
+    Boss
 }

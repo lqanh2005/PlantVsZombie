@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0f29a478b29d6f42a537e3b73d1234e, type: 3}
+  m_Name: EnemyDataBase
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyDataBase
+  meleEnemyDataList: {fileID: 11400000, guid: 7515fce3fd25e4d46937862c9b8236a2, type: 2}
+  rangedEnemyDataList: {fileID: 11400000, guid: 69284c2c38a017e4e8005b0777dcc85b, type: 2}
+  tankEnemyDataList: {fileID: 11400000, guid: b2644efb443b50c47b9f0cc421423f00, type: 2}
