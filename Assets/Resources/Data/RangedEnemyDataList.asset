@@ -16,11 +16,11 @@ MonoBehaviour:
   - enemyId: 1
     enemyName: Pirate
     enemyType: 1
-    enemyPrefab: {fileID: 0}
+    enemyPrefab: {fileID: 4381087031543030135, guid: 6c2612c60aceeab4b95e8de887ab8ba2, type: 3}
     health: 190
-    speed: 3
+    speed: 0.35
     armor: 20
     damage: 25
-    attackCooldown: 3
+    attackCooldown: 4
     attackRange: 5
-    bullet: {fileID: 0}
+    bullet: {fileID: 4057499589675643514, guid: a99220e0fa4543b45a166f30e20c9b34, type: 3}

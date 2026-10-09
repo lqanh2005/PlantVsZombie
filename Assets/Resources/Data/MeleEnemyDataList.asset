@@ -16,9 +16,9 @@ MonoBehaviour:
   - enemyId: 1
     enemyName: Cowboy
     enemyType: 0
-    enemyPrefab: {fileID: 0}
+    enemyPrefab: {fileID: 3874894604012552948, guid: d72d1e8b8723f7543b8418669f4e9e19, type: 3}
     health: 200
-    speed: 4
+    speed: 0.45
     armor: 10
     damage: 30
-    attackCooldown: 3
+    attackCooldown: 1.5

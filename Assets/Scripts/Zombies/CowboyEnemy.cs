@@ -2,39 +2,20 @@ using UnityEngine;
 
 public class CowboyEnemy : MeleeEnemyBase
 {
-    [SerializeField] private MeleEnemyData meleEnemyData;
-    [SerializeField] private GameObject bulletPrefab;
-    [SerializeField] private Transform firePoint;
-    private float attackTimer;
+    [SerializeField] private float dashMultiplier = 2f;
+    private bool hasDashed;
 
     public override void Init()
     {
         base.Init();
-        meleEnemyData = (MeleEnemyData)EnemyDataBase.Instance.GetEnemyData(enemyType, enemyId - 1);
-        currentHealth = meleEnemyData.health;
-        attackTimer = meleEnemyData.attackCooldown;
+        hasDashed = false;
     }
-    protected virtual void Update()
+
+    protected override float MoveSpeed => hasDashed ? data.speed : data.speed * dashMultiplier;
+
+    protected override void Attack(PlantBase target)
     {
-        if (!isAlive)
-            return;
-
-        attackTimer -= Time.deltaTime;
-
-        if (attackTimer <= 0f && CanAttack())
-        {
-            attackTimer = meleEnemyData.attackCooldown;
-        }
+        hasDashed = true;
+        base.Attack(target);
     }
-    protected virtual bool CanAttack()
-    {
-        // TODO: Kiểm tra có Zombie trong tầm bắn hay không.
-        return true;
-    }
-
-    //public override void ResetPlant()
-    //{
-    //    base.ResetPlant();
-    //    attackTimer = 0f;
-    //}
 }

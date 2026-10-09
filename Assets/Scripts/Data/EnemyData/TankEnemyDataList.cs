@@ -10,6 +10,8 @@ public class TankEnemyDataList : ScriptableObject
 [System.Serializable]
 public class TankEnemyData : EnemyData
 {
+    public float damage;
+    public float attackCooldown;
     public float armorHealth;
-    public float damageReduction;
+    [Range(0f, 100f)] public float damageReduction;
 }

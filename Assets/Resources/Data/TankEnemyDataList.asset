@@ -14,11 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TankEnemyDataList
   tankEnemyDataList:
   - enemyId: 1
-    enemyName: Buckethead
+    enemyName: Golem
     enemyType: 2
-    enemyPrefab: {fileID: 0}
+    enemyPrefab: {fileID: 2841393083378122003, guid: 0b265cba53e5cbf4791d9041e209331d, type: 3}
     health: 600
-    speed: 5
+    speed: 0.3
     armor: 30
+    damage: 30
+    attackCooldown: 2
     armorHealth: 20
     damageReduction: 10

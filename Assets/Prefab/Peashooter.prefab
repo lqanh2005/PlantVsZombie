@@ -154,9 +154,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2198088357612683248}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3d6a648e7475d848ba4479c3bc05e85, type: 3}
+  m_Script: {fileID: 11500000, guid: 80cfc196901a35945b0e2410ab6e117f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ShooterPlantBase
+  m_EditorClassIdentifier: Assembly-CSharp::Peashooter
   plantId: 1
   plantType: 0
   currentHealth: 0

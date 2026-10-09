@@ -173,4 +173,4 @@ MonoBehaviour:
     sunAmount: 0
     productionInterval: 0
   sunPrefab: {fileID: 261169174084883958, guid: 934f7b1780bd27a4884fcb63735bfbd1, type: 3}
-  spawnSun: {fileID: 427089351965463977}
+  spawnSun: {fileID: 3537871233867678464}

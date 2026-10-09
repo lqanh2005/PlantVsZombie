@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 253468518995114524}
   - component: {fileID: 6198984037340583022}
   - component: {fileID: 5593945557454970410}
+  - component: {fileID: 4359584992755581483}
   m_Layer: 3
   m_Name: Wallnut
   m_TagString: Plant
@@ -112,3 +113,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4359584992755581483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4611833255287974793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 881477f6745da534da296d103d472bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Wallnut
+  plantId: 1
+  plantType: 4
+  currentHealth: 0
+  laneHalfWidth: 0.4
+  detectHeight: 2

@@ -1,9 +1,14 @@
 using UnityEngine;
 
-public class PeaBullet : MonoBehaviour
+public class PeaBullet : BulletBase
 {
-    private void Update()
+    protected override bool TryHit(Collider other)
     {
-        transform.Translate(Vector3.right * Time.deltaTime * 5f);
+        ZombieBase zombie = other.GetComponentInParent<ZombieBase>();
+        if (zombie == null || !zombie.isAlive)
+            return false;
+
+        zombie.TakeDamage(damage);
+        return true;
     }
 }

@@ -1,40 +1,48 @@
-using System;
 using UnityEngine;
 
-public class SunProducerPlantBase : PlantBase
+public abstract class SunProducerPlantBase : PlantBase
 {
-    [SerializeField] private SunProducerData sunProducerData;
-    [SerializeField] private GameObject sunPrefab;
-    [SerializeField] private GameObject spawnSun;
-    private float activeTimer;
+    [SerializeField] protected GameObject sunPrefab;
+    [SerializeField] protected Transform spawnSun;
+    [SerializeField] protected float sunSpawnHeight = 1.5f;
+    [SerializeField] protected float firstSunDelay = 5f;
+    protected float produceTimer;
+
+    protected SunProducerData SunData => (SunProducerData)data;
 
     public override void Init()
     {
         base.Init();
-        sunProducerData = (SunProducerData)PlantDatabase.Instance.GetPlantDataByType(plantType, plantId - 1);
-        currentHealth = sunProducerData.health;
-        activeTimer = sunProducerData.productionInterval; // Initialize the timer
+        if (!isAlive)
+            return;
+
+        produceTimer = Mathf.Min(firstSunDelay, SunData.productionInterval);
     }
+
     protected virtual void Update()
     {
         if (!isAlive)
             return;
 
-        activeTimer -= Time.deltaTime;
+        produceTimer -= Time.deltaTime;
 
-        if (activeTimer <= 0f)
+        if (produceTimer <= 0f)
         {
             ProduceSun();
-            activeTimer = sunProducerData.productionInterval;
+            produceTimer = SunData.productionInterval;
         }
     }
 
-    private void ProduceSun()
+    protected virtual void ProduceSun()
     {
-        SimplePool.Spawn(
-            sunPrefab,
-            spawnSun.transform.position + Vector3.up * 1.5f, // Adjust the position as needed
-            Quaternion.identity
-        );
+        if (sunPrefab == null)
+            return;
+
+        Vector3 basePosition = spawnSun != null ? spawnSun.position : transform.position;
+        GameObject sunObject = SimplePool.Spawn(sunPrefab, basePosition + Vector3.up * sunSpawnHeight, Quaternion.identity);
+
+        Sun sun = sunObject.GetComponent<Sun>();
+        if (sun != null)
+            sun.Init(SunData.sunAmount);
     }
 }

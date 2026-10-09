@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-[CreateAssetMenu(fileName = "SunProducerDataList", menuName = "Plants/SunProducerDataList")]    
+[CreateAssetMenu(fileName = "SunProducerDataList", menuName = "Plants/SunProducerDataList")]
 public class SunProducerDataList : ScriptableObject
 {
     public List<SunProducerData> sunProducerDataList = new List<SunProducerData>();
@@ -11,8 +11,4 @@ public class SunProducerData : PlantData
 {
     public int sunAmount;
     public float productionInterval;
-    private void OnValidate()
-    {
-        this.plantType = PlantType.SunProducer;
-    }
 }

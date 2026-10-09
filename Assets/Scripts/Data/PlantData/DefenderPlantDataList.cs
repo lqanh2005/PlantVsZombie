@@ -4,13 +4,9 @@ using System.Collections.Generic;
 [CreateAssetMenu(fileName = "DefenderPlantData", menuName = "Plants/DefenderPlantData")]
 public class DefenderPlantDataList : ScriptableObject
 {
-    public List<DefenderPlantData> defenderPlantDataList;
+    public List<DefenderPlantData> defenderPlantDataList = new List<DefenderPlantData>();
 }
 [System.Serializable]
 public class DefenderPlantData : PlantData
 {
-    private void OnValidate()
-    {
-        this.plantType = PlantType.Defense;
-    }
 }

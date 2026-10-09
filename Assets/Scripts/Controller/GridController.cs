@@ -1,6 +1,4 @@
-using UnityEditor.PackageManager;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class GridController : MonoBehaviour
 {
@@ -8,6 +6,8 @@ public class GridController : MonoBehaviour
     public GameObject tilePrefab;
     [SerializeField] int cols = 9;
     [SerializeField] int rows = 5;
+    public int Rows => rows;
+    public int Cols => cols;
 
     [Header("Board Size")]
     public float boardWidth = 18f;

@@ -5,19 +5,24 @@ public class EnemyDataBase : SingletonScriptableObject<EnemyDataBase>
     public MeleEnemyDataList meleEnemyDataList;
     public RangedEnemyDataList rangedEnemyDataList;
     public TankEnemyDataList tankEnemyDataList;
-    public EnemyData GetEnemyData(EnemyType enemyType, int idx)
+    public EnemyData GetEnemyData(EnemyType enemyType, int enemyId)
     {
+        EnemyData result = null;
         switch (enemyType)
         {
             case EnemyType.Melee:
-                return meleEnemyDataList.meleEnemyDataList[idx];
+                result = meleEnemyDataList.meleEnemyDataList.Find(d => d.enemyId == enemyId);
+                break;
             case EnemyType.Ranged:
-                return rangedEnemyDataList.rangedEnemyDataList[idx];
+                result = rangedEnemyDataList.rangedEnemyDataList.Find(d => d.enemyId == enemyId);
+                break;
             case EnemyType.Tank:
-                return tankEnemyDataList.tankEnemyDataList[idx];
-            default:
-                Debug.LogError($"Enemy type {enemyType} not found.");
-                return null;
+                result = tankEnemyDataList.tankEnemyDataList.Find(d => d.enemyId == enemyId);
+                break;
         }
+
+        if (result == null)
+            Debug.LogError($"Enemy data not found: type {enemyType}, id {enemyId}.");
+        return result;
     }
 }

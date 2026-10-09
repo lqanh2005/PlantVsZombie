@@ -1,19 +1,23 @@
 using UnityEngine;
 
-public class ShooterPlantBase : PlantBase
+public abstract class ShooterPlantBase : PlantBase
 {
-    [SerializeField] private ShooterPlantData shooterPlantData;
-    [SerializeField] private GameObject bulletPrefab;
-    [SerializeField] private Transform firePoint;
-    private float attackTimer;
+    [SerializeField] protected GameObject bulletPrefab;
+    [SerializeField] protected Transform firePoint;
+    [SerializeField] protected float bulletSpeed = 8f;
+    protected float attackTimer;
+
+    protected ShooterPlantData ShooterData => (ShooterPlantData)data;
 
     public override void Init()
     {
         base.Init();
-        shooterPlantData = (ShooterPlantData)PlantDatabase.Instance.GetPlantDataByType(plantType, plantId-1);
-        currentHealth = shooterPlantData.health;
-        attackTimer = shooterPlantData.attackCooldown;
+        if (!isAlive)
+            return;
+
+        attackTimer = 0f;
     }
+
     protected virtual void Update()
     {
         if (!isAlive)
@@ -24,31 +28,25 @@ public class ShooterPlantBase : PlantBase
         if (attackTimer <= 0f && CanAttack())
         {
             Shoot();
-            attackTimer = shooterPlantData.attackCooldown;
+            attackTimer = ShooterData.attackCooldown;
         }
     }
+
     protected virtual bool CanAttack()
     {
-        // TODO: Kiểm tra có Zombie trong tầm bắn hay không.
-        return true;
+        return FindZombieInFront(ShooterData.attackRange) != null;
     }
 
     protected virtual void Shoot()
     {
-        if (bulletPrefab == null || firePoint == null)
+        if (bulletPrefab == null)
             return;
 
-        GameObject projectile = SimplePool.Spawn(
-            bulletPrefab,
-            firePoint.position,
-            firePoint.rotation
-        );
+        Vector3 spawnPosition = firePoint != null ? firePoint.position : transform.position + Vector3.up;
+        GameObject projectile = SimplePool.Spawn(bulletPrefab, spawnPosition, Quaternion.identity);
 
-        // TODO: Truyền damage cho projectile nếu cần.
+        BulletBase bullet = projectile.GetComponent<BulletBase>();
+        if (bullet != null)
+            bullet.Init(ShooterData.damage, Vector3.right, bulletSpeed);
     }
-    //public override void ResetPlant()
-    //{
-    //    base.ResetPlant();
-    //    attackTimer = 0f;
-    //}
 }

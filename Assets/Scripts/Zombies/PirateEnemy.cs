@@ -1,54 +1,25 @@
+using System.Collections;
 using UnityEngine;
 
 public class PirateEnemy : RangedEnemyBase
 {
-    [SerializeField] private RangedEnemyData rangedEnemyData;
-    [SerializeField] private GameObject bulletPrefab;
-    [SerializeField] private Transform firePoint;
-    private float attackTimer;
+    [SerializeField] private int burstCount = 2;
+    [SerializeField] private float burstInterval = 0.2f;
 
-    public override void Init()
+    protected override void Attack(PlantBase target)
     {
-        base.Init();
-        rangedEnemyData = (RangedEnemyData)EnemyDataBase.Instance.GetEnemyData(enemyType, enemyId - 1);
-        currentHealth = rangedEnemyData.health;
-        attackTimer = rangedEnemyData.attackCooldown;
+        StartCoroutine(BurstFire(target));
     }
-    protected virtual void Update()
+
+    private IEnumerator BurstFire(PlantBase target)
     {
-        if (!isAlive)
-            return;
-
-        attackTimer -= Time.deltaTime;
-
-        if (attackTimer <= 0f && CanAttack())
+        for (int i = 0; i < burstCount; i++)
         {
-            Shoot();
-            attackTimer = rangedEnemyData.attackCooldown;
+            if (!isAlive)
+                yield break;
+
+            base.Attack(target);
+            yield return new WaitForSeconds(burstInterval);
         }
     }
-    protected virtual bool CanAttack()
-    {
-        // TODO: Kiểm tra có Zombie trong tầm bắn hay không.
-        return true;
-    }
-
-    protected virtual void Shoot()
-    {
-        if (bulletPrefab == null || firePoint == null)
-            return;
-
-        GameObject projectile = SimplePool.Spawn(
-            bulletPrefab,
-            firePoint.position,
-            firePoint.rotation
-        );
-
-        // TODO: Truyền damage cho projectile nếu cần.
-    }
-    //public override void ResetPlant()
-    //{
-    //    base.ResetPlant();
-    //    attackTimer = 0f;
-    //}
 }

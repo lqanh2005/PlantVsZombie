@@ -5,24 +5,159 @@ public abstract class ZombieBase : MonoBehaviour, ITakeDamage
     [SerializeField] protected int enemyId;
     [SerializeField] protected EnemyType enemyType;
     [SerializeField] protected float currentHealth;
+
+    [Header("Phát hiện cây")]
+    [SerializeField] protected float laneHalfWidth = 0.4f;
+    [SerializeField] protected float detectHeight = 2f;
+
+    [Header("Nhà")]
+    [SerializeField] protected float houseOffset = 1f;
+
+    [Header("Hướng model")]
+    [SerializeField] protected float modelYawOffset = 0f;
+
+    protected EnemyData data;
+    protected float attackTimer;
+    protected float houseX;
+    protected DamageFlash damageFlash;
     public bool isAlive { get; private set; }
+
+    protected abstract float AttackRange { get; }
+    protected abstract float AttackCooldown { get; }
+    protected abstract void Attack(PlantBase target);
+
+    protected virtual void Awake()
+    {
+        damageFlash = GetComponent<DamageFlash>();
+        if (damageFlash == null)
+            damageFlash = gameObject.AddComponent<DamageFlash>();
+    }
+
+    protected void PlayHitFlash()
+    {
+        if (damageFlash != null)
+            damageFlash.Play();
+    }
+
     public virtual void Init()
     {
+        data = EnemyDataBase.Instance.GetEnemyData(enemyType, enemyId);
+        if (data == null)
+        {
+            isAlive = false;
+            SimplePool.Despawn(gameObject);
+            return;
+        }
+
+        transform.rotation = Quaternion.LookRotation(Vector3.left) * Quaternion.Euler(0f, modelYawOffset, 0f);
+        currentHealth = data.health;
+        attackTimer = 0f;
+        houseX = GetHouseX();
         isAlive = true;
     }
 
-    public void TakeDamage(float damage)
+    protected virtual void Update()
     {
-        currentHealth -= damage;
+        if (!isAlive)
+            return;
+
+        if (GamePlayController.Instance.stateGame == StateGame.Lose)
+            return;
+
+        attackTimer -= Time.deltaTime;
+
+        PlantBase target = FindPlantInFront(AttackRange);
+        if (target == null)
+        {
+            Move();
+            return;
+        }
+
+        if (attackTimer <= 0f)
+        {
+            Attack(target);
+            attackTimer = AttackCooldown;
+        }
+    }
+
+    protected virtual float MoveSpeed => data.speed;
+
+    protected virtual void Move()
+    {
+        transform.Translate(Vector3.left * MoveSpeed * Time.deltaTime, Space.World);
+
+        if (transform.position.x <= houseX)
+            OnReachHouse();
+    }
+
+    protected virtual void OnReachHouse()
+    {
+        GamePlayController.Instance.stateGame = StateGame.Lose;
+        isAlive = false;
+        SimplePool.Despawn(gameObject);
+    }
+
+    protected PlantBase FindPlantInFront(float range)
+    {
+        Vector3 center = transform.position + Vector3.left * range * 0.5f + Vector3.up * detectHeight * 0.5f;
+        Vector3 halfExtents = new Vector3(range * 0.5f, detectHeight * 0.5f, laneHalfWidth);
+        Collider[] hits = Physics.OverlapBox(center, halfExtents, Quaternion.identity, ~0, QueryTriggerInteraction.Collide);
+
+        PlantBase nearest = null;
+        float nearestDistance = float.MaxValue;
+        foreach (Collider hit in hits)
+        {
+            PlantBase plant = hit.GetComponentInParent<PlantBase>();
+            if (plant == null || !plant.isAlive)
+                continue;
+
+            float distance = transform.position.x - plant.transform.position.x;
+            if (distance < -laneHalfWidth || distance >= nearestDistance)
+                continue;
+
+            nearest = plant;
+            nearestDistance = distance;
+        }
+        return nearest;
+    }
+
+    public virtual void TakeDamage(float damage)
+    {
+        if (!isAlive)
+            return;
+
+        currentHealth -= ApplyArmor(damage);
         if (currentHealth <= 0)
         {
             Die();
+            return;
         }
+
+        PlayHitFlash();
+    }
+
+    protected float ApplyArmor(float damage)
+    {
+        return damage * 100f / (100f + Mathf.Max(0f, data.armor));
     }
 
     protected virtual void Die()
     {
         isAlive = false;
         SimplePool.Despawn(gameObject);
+    }
+
+    private float GetHouseX()
+    {
+        GridController grid = GamePlayController.Instance.playerContain.grid;
+        return grid.transform.TransformPoint(new Vector3(-grid.boardWidth / 2f, 0f, 0f)).x - houseOffset;
+    }
+
+    protected virtual void OnDrawGizmosSelected()
+    {
+        float range = Application.isPlaying && data != null ? AttackRange : 1f;
+        Gizmos.color = Color.red;
+        Vector3 center = transform.position + Vector3.left * range * 0.5f + Vector3.up * detectHeight * 0.5f;
+        Gizmos.DrawWireCube(center, new Vector3(range, detectHeight, laneHalfWidth * 2f));
     }
 }

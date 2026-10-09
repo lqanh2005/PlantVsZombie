@@ -1,6 +1,15 @@
 using UnityEngine;
 
-public class MeleeEnemyBase : ZombieBase
+public abstract class MeleeEnemyBase : ZombieBase
 {
-    //public 
+    [SerializeField] protected float attackRange = 0.8f;
+
+    protected MeleEnemyData MeleeData => (MeleEnemyData)data;
+    protected override float AttackRange => attackRange;
+    protected override float AttackCooldown => MeleeData.attackCooldown;
+
+    protected override void Attack(PlantBase target)
+    {
+        target.TakeDamage(MeleeData.damage);
+    }
 }
