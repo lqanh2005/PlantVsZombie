@@ -1,13 +1,13 @@
+using System;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PlantData", menuName = "ScriptableObjects/PlantData", order = 1)]
-public class PlantData : ScriptableObject
+public class PlantData
 {
     [Header("Thông tin")]
+    public int plantId;
     public string plantName;
-
-    [Header("Hình ảnh")]
     public Sprite icon;
+    public PlantType plantType;
 
     [Header("Prefab trong game")]
     public GameObject plantPrefab;
@@ -15,7 +15,15 @@ public class PlantData : ScriptableObject
     [Header("Chỉ số")]
     public int sunCost;
     public float health;
-    public float attackDamage;
-    public float activeCooldown;
+    public float armor;
     public float rechargeTime;
+}
+
+public enum PlantType
+{
+    Shooter,
+    Explosive,
+    SunProducer,
+    Buff,
+    Defense
 }

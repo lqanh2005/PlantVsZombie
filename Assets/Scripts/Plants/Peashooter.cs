@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Peashooter : PlantBase
+public class Peashooter : ShooterPlantBase
 {
     
 }

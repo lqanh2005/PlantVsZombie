@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: SunProducerData
+  m_EditorClassIdentifier: Assembly-CSharp::SunProducerDataList
+  sunProducerDataList:
+  - plantId: 1
+    plantName: Sunflower
+    icon: {fileID: 21300000, guid: 95c0d09c1b2595e4ca9f36c22c4977fb, type: 3}
+    plantType: 2
+    plantPrefab: {fileID: 8500864654305929414, guid: 5464d30f8f087ec4687333de009b9f40, type: 3}
+    sunCost: 50
+    health: 300
+    armor: 20
+    rechargeTime: 7.5
+    sunAmount: 25
+    productionInterval: 3
