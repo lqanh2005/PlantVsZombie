@@ -4,40 +4,42 @@ public abstract class BulletBase : MonoBehaviour
 {
     [SerializeField] protected float lifeTime = 5f;
 
-    protected float damage;
-    protected float speed;
+    [SerializeField] protected EffectData effectData;
+    [SerializeField] protected EffectType effectType;
     protected Vector3 direction;
-    private float lifeTimer;
     private bool hasHit;
 
-    public virtual void Init(float damage, Vector3 direction, float speed)
+    public virtual void Init(EffectType effectType)
     {
-        this.damage = damage;
-        this.direction = direction.normalized;
-        this.speed = speed;
-        lifeTimer = lifeTime;
+        effectData = EffectDataList.Instance.GetEffectDataByType(effectType);
         hasHit = false;
     }
 
     protected virtual void Update()
     {
-        transform.Translate(direction * speed * Time.deltaTime, Space.World);
+        if (hasHit || effectData == null)
+            return;
 
-        lifeTimer -= Time.deltaTime;
-        if (lifeTimer <= 0f)
-            SimplePool.Despawn(gameObject);
+        transform.Translate(
+            Vector3.right * effectData.speed * Time.deltaTime
+        );
     }
 
-    private void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
         if (hasHit)
             return;
 
-        if (!TryHit(other))
+        ZombieBase enemy = other.GetComponent<ZombieBase>();
+
+        if (enemy == null)
             return;
 
         hasHit = true;
-        SimplePool.Despawn(gameObject);
+
+        enemy.GetEffect(effectData);
+        enemy.TakeDamage(effectData.damage);
+        Destroy(gameObject);
     }
 
     protected abstract bool TryHit(Collider other);

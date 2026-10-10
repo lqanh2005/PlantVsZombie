@@ -22,6 +22,7 @@ MonoBehaviour:
     health: 300
     armor: 20
     rechargeTime: 7.5
+    effectType: 1
     damage: 20
     attackCooldown: 1.5
     attackRange: 20

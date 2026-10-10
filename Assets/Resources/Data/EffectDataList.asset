@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c764408fd152f844daf6d74b81492a8e, type: 3}
+  m_Name: EffectDataList
+  m_EditorClassIdentifier: Assembly-CSharp::BulletDataList
+  bulletDataList:
+  - bulletId: 1
+    bulletName: Norrmal
+    bulletPrefab: {fileID: 7096535160839244418, guid: e212f34eba7c83242b06774738893f9d, type: 3}
+    damage: 20
+    speed: 8
+    effectType: 0
+    effectValue: 0
+    effectDuration: 0
+  - bulletId: 2
+    bulletName: Slow
+    bulletPrefab: {fileID: 7096535160839244418, guid: 88dc939bdd2d1624bb258f18d0eafd6c, type: 3}
+    damage: 20
+    speed: 8
+    effectType: 3
+    effectValue: 40
+    effectDuration: 2
+  - bulletId: 3
+    bulletName: Burn
+    bulletPrefab: {fileID: 7096535160839244418, guid: 34ac435ab4fa3f544804120fa09f56b3, type: 3}
+    damage: 15
+    speed: 8
+    effectType: 1
+    effectValue: 5
+    effectDuration: 3
+  - bulletId: 4
+    bulletName: ArrmorBreak
+    bulletPrefab: {fileID: 7096535160839244418, guid: 94ec2508a66db8942baedf11f92e5ddd, type: 3}
+    damage: 20
+    speed: 8
+    effectType: 2
+    effectValue: 30
+    effectDuration: 4

@@ -1,16 +1,14 @@
-using DG.Tweening;
+﻿using DG.Tweening;
 using UnityEngine;
 
 [RequireComponent(typeof(EnemyAnimation))]
 [RequireComponent(typeof(DamageFlash))]
-[RequireComponent(typeof(EffectController))]
 public abstract class ZombieBase : MonoBehaviour, ITakeDamage
 {
     [SerializeField] protected int enemyId;
     [SerializeField] protected EnemyType enemyType;
     [SerializeField] protected float currentHealth;
     [SerializeField] protected EnemyAnimation animator;
-    [SerializeField] protected EffectController effectController;
 
     [Header("Phát hiện cây")]
     [SerializeField] protected float laneHalfWidth = 0.4f;
@@ -36,7 +34,6 @@ public abstract class ZombieBase : MonoBehaviour, ITakeDamage
     {
         animator = GetComponent<EnemyAnimation>();
         damageFlash = GetComponent<DamageFlash>();
-        effectController = GetComponent<EffectController>();
     }
 
     protected void PlayHitFlash()
@@ -86,17 +83,7 @@ public abstract class ZombieBase : MonoBehaviour, ITakeDamage
         }
     }
 
-    protected virtual float MoveSpeed
-    {
-        get
-        {
-            float multiplier = effectController != null
-                ? effectController.GetMoveSpeedMultiplier()
-                : 1f;
-
-            return data.speed * multiplier;
-        }
-    }
+    protected virtual float MoveSpeed => data.speed;
 
     protected virtual void Move()
     {
@@ -162,7 +149,6 @@ public abstract class ZombieBase : MonoBehaviour, ITakeDamage
         isAlive = false;
         animator.Die();
         DOVirtual.DelayedCall(1f, () => SimplePool.Despawn(gameObject));
-        SimplePool.Despawn(gameObject);
     }
 
     private float GetHouseX()
@@ -170,9 +156,12 @@ public abstract class ZombieBase : MonoBehaviour, ITakeDamage
         GridController grid = GamePlayController.Instance.playerContain.grid;
         return grid.transform.TransformPoint(new Vector3(-grid.boardWidth / 2f, 0f, 0f)).x - houseOffset;
     }
-    public void GetEffect(EffectData effect)
-    {
-        effectController.ApplyEffect(effect);
-    }
 
+    protected virtual void OnDrawGizmosSelected()
+    {
+        float range = Application.isPlaying && data != null ? AttackRange : 1f;
+        Gizmos.color = Color.red;
+        Vector3 center = transform.position + Vector3.left * range * 0.5f + Vector3.up * detectHeight * 0.5f;
+        Gizmos.DrawWireCube(center, new Vector3(range, detectHeight, laneHalfWidth * 2f));
+    }
 }

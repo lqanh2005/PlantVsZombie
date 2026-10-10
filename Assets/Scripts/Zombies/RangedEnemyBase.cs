@@ -20,7 +20,7 @@ public abstract class RangedEnemyBase : ZombieBase
         GameObject projectile = SimplePool.Spawn(prefab, spawnPosition, Quaternion.identity);
 
         EnemyBullet bullet = projectile.GetComponent<EnemyBullet>();
-        if (bullet != null)
-            bullet.Init(RangedData.damage, Vector3.left, bulletSpeed);
+        //if (bullet != null)
+        //    bullet.Init(RangedData.damage, Vector3.left, bulletSpeed);
     }
 }

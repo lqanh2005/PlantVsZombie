@@ -11,5 +11,6 @@ public abstract class MeleeEnemyBase : ZombieBase
     protected override void Attack(PlantBase target)
     {
         target.TakeDamage(MeleeData.damage);
+        animator.Attack();
     }
 }

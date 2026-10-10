@@ -4,6 +4,8 @@ public abstract class PlantBase : MonoBehaviour, ITakeDamage
 {
     [SerializeField] protected int plantId;
     [SerializeField] protected PlantType plantType;
+    [SerializeField] protected EffectType effectType;
+
     [SerializeField] protected float currentHealth;
 
     [Header("Phát hiện zombie")]

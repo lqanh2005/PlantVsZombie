@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PeaBullet : BulletBase
+public class BurnBullet : BulletBase
 {
     protected override bool TryHit(Collider other)
     {
@@ -8,7 +8,7 @@ public class PeaBullet : BulletBase
         if (zombie == null || !zombie.isAlive)
             return false;
 
-        zombie.TakeDamage(damage);
+        zombie.TakeDamage(effectData.damage);
         return true;
     }
 }

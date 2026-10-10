@@ -8,7 +8,7 @@ public class EnemyBullet : BulletBase
         if (plant == null || !plant.isAlive)
             return false;
 
-        plant.TakeDamage(damage);
+        plant.TakeDamage(effectData.damage);
         return true;
     }
 }

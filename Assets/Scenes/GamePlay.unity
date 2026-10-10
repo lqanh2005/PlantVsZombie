@@ -150,7 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ZombieSpawner
   spawnEntries:
   - zombiePrefab: {fileID: 3874894604012552948, guid: d72d1e8b8723f7543b8418669f4e9e19, type: 3}
-    delay: 25
+    delay: 1
     row: -1
   - zombiePrefab: {fileID: 3874894604012552948, guid: d72d1e8b8723f7543b8418669f4e9e19, type: 3}
     delay: 20
@@ -817,6 +817,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlantSpawner
   selectedPlantPool: {fileID: 0}
+  spawnOffset: {x: 0, y: 0.5, z: 0}
 --- !u!1001 &635817739
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1650,6 +1651,8 @@ MonoBehaviour:
   startingSun: 150
   sunText: {fileID: 2080214312}
   sunFormat: 'Sun: {0}'
+  punchScale: 0.15
+  punchDuration: 0.2
 --- !u!4 &1476136544
 Transform:
   m_ObjectHideFlags: 0

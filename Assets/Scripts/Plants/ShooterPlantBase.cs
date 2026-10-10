@@ -15,7 +15,7 @@ public abstract class ShooterPlantBase : PlantBase
         if (!isAlive)
             return;
 
-        attackTimer = 0f;
+        attackTimer = ShooterData.attackCooldown;
     }
 
     protected virtual void Update()
@@ -47,6 +47,6 @@ public abstract class ShooterPlantBase : PlantBase
 
         BulletBase bullet = projectile.GetComponent<BulletBase>();
         if (bullet != null)
-            bullet.Init(ShooterData.damage, Vector3.right, bulletSpeed);
+            bullet.Init(this.effectType);
     }
 }
