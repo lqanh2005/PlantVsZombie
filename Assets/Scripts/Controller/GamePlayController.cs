@@ -23,9 +23,20 @@ public class GamePlayController : Singleton<GamePlayController>
 
     }
 
-    public void Init()
+    private void Init()
     {
         playerContain.Init();
         gameScene.Init();
+    }
+    private void Update()
+    {
+        if(playerContain.levelController.currentZombies.Count == 0)
+        {
+            // Check if all zombies are defeated
+        }
+        if(playerContain.playerHealth <= 0)
+        {
+            // Check if the player has lost
+        }
     }
 }
