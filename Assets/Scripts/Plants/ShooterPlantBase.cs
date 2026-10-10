@@ -4,7 +4,6 @@ public abstract class ShooterPlantBase : PlantBase
 {
     [SerializeField] protected GameObject bulletPrefab;
     [SerializeField] protected Transform firePoint;
-    [SerializeField] protected float bulletSpeed = 8f;
     protected float attackTimer;
 
     protected ShooterPlantData ShooterData => (ShooterPlantData)data;

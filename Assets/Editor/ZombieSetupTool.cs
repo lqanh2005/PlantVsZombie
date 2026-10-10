@@ -16,8 +16,9 @@ public static class ZombieSetupTool
     private const string RangedDataPath = "Assets/Resources/Data/RangedEnemyDataList.asset";
     private const string TankDataPath = "Assets/Resources/Data/TankEnemyDataList.asset";
     private const string WallnutPath = "Assets/Prefab/Wallnut.prefab";
+    private const string SunPrefabPath = "Assets/Prefab/sun.prefab";
 
-    private static string AutoRunKey => "ZombieSetupTool.Done.v3." + Application.dataPath;
+    private static string AutoRunKey => "ZombieSetupTool.Done.v5." + Application.dataPath;
 
     static ZombieSetupTool()
     {
@@ -219,7 +220,18 @@ public static class ZombieSetupTool
             SceneManager.MoveGameObjectToScene(go, scene);
             go.transform.SetParent(playerContain.transform, false);
             spawner = go.AddComponent<ZombieSpawner>();
-            FillSpawnEntries(spawner);
+        }
+
+        LevelController levelController = playerContain.levelController != null
+            ? playerContain.levelController
+            : FindInScene<LevelController>(scene);
+
+        if (levelController == null)
+        {
+            GameObject go = new GameObject("LevelController");
+            SceneManager.MoveGameObjectToScene(go, scene);
+            go.transform.SetParent(playerContain.transform, false);
+            levelController = go.AddComponent<LevelController>();
         }
 
         SunManager sunManager = playerContain.sunManager != null
@@ -236,7 +248,29 @@ public static class ZombieSetupTool
 
         SetupSunText(scene, sunManager);
 
+        SkySunSpawner skySunSpawner = playerContain.skySunSpawner != null
+            ? playerContain.skySunSpawner
+            : FindInScene<SkySunSpawner>(scene);
+
+        if (skySunSpawner == null)
+        {
+            GameObject go = new GameObject("SkySunSpawner");
+            SceneManager.MoveGameObjectToScene(go, scene);
+            go.transform.SetParent(playerContain.transform, false);
+            skySunSpawner = go.AddComponent<SkySunSpawner>();
+        }
+
+        SerializedObject skySo = new SerializedObject(skySunSpawner);
+        SerializedProperty sunPrefabProperty = skySo.FindProperty("sunPrefab");
+        if (sunPrefabProperty.objectReferenceValue == null)
+        {
+            sunPrefabProperty.objectReferenceValue = AssetDatabase.LoadAssetAtPath<GameObject>(SunPrefabPath);
+            skySo.ApplyModifiedPropertiesWithoutUndo();
+        }
+        playerContain.skySunSpawner = skySunSpawner;
+
         playerContain.zombieSpawner = spawner;
+        playerContain.levelController = levelController;
         playerContain.sunManager = sunManager;
         EditorUtility.SetDirty(playerContain);
         EditorSceneManager.MarkSceneDirty(scene);
@@ -281,41 +315,6 @@ public static class ZombieSetupTool
         text.raycastTarget = false;
 
         textProperty.objectReferenceValue = text;
-        so.ApplyModifiedPropertiesWithoutUndo();
-    }
-
-    private static void FillSpawnEntries(ZombieSpawner spawner)
-    {
-        GameObject cowboy = AssetDatabase.LoadAssetAtPath<GameObject>(CowboyPath);
-        GameObject pirate = AssetDatabase.LoadAssetAtPath<GameObject>(PiratePath);
-        GameObject golem = AssetDatabase.LoadAssetAtPath<GameObject>(GolemPath);
-
-        (GameObject prefab, float delay)[] entries =
-        {
-            (cowboy, 25f),
-            (cowboy, 20f),
-            (pirate, 18f),
-            (golem, 22f),
-            (cowboy, 15f),
-            (pirate, 14f),
-            (golem, 12f),
-        };
-
-        SerializedObject so = new SerializedObject(spawner);
-        SerializedProperty list = so.FindProperty("spawnEntries");
-        list.arraySize = 0;
-        foreach ((GameObject prefab, float delay) in entries)
-        {
-            if (prefab == null)
-                continue;
-
-            int index = list.arraySize;
-            list.InsertArrayElementAtIndex(index);
-            SerializedProperty element = list.GetArrayElementAtIndex(index);
-            element.FindPropertyRelative("zombiePrefab").objectReferenceValue = prefab;
-            element.FindPropertyRelative("delay").floatValue = delay;
-            element.FindPropertyRelative("row").intValue = -1;
-        }
         so.ApplyModifiedPropertiesWithoutUndo();
     }
 

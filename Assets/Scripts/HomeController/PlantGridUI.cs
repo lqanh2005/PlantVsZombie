@@ -38,6 +38,7 @@ public class PlantGridUI : MonoBehaviour
             rect.offsetMax = Vector2.zero;
 
             card.SetData(plantDatas[i]);
+            plantCards.Add(card);
         }
     }
 

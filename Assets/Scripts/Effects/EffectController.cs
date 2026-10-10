@@ -12,9 +12,17 @@ public class EffectController : MonoBehaviour
         zombie = GetComponent<ZombieBase>();
     }
 
+    private void Awake()
+    {
+        if (zombie == null)
+            zombie = GetComponent<ZombieBase>();
+    }
+
     public void ApplyEffect(EffectData effectData)
     {
-        if (effectData == null || zombie == null || !zombie.isAlive)
+        if (effectData == null || effectData.effectType == EffectType.Normal)
+            return;
+        if (zombie == null || !zombie.isAlive)
             return;
         StatusEffect effect = CreateEffect(effectData.effectType);
 
@@ -46,6 +54,9 @@ public class EffectController : MonoBehaviour
         {
             StatusEffect effect = activeEffects[i];
             effect.Tick(zombie);
+
+            if (!zombie.isAlive)
+                return;
 
             if (!effect.IsFinished)
                 continue;

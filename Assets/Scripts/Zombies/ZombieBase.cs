@@ -34,9 +34,22 @@ public abstract class ZombieBase : MonoBehaviour, ITakeDamage
 
     private void OnValidate()
     {
-        animator = GetComponent<EnemyAnimation>();
-        damageFlash = GetComponent<DamageFlash>();
-        effectController = GetComponent<EffectController>();
+        CacheComponents();
+    }
+
+    protected virtual void Awake()
+    {
+        CacheComponents();
+    }
+
+    private void CacheComponents()
+    {
+        if (animator == null)
+            animator = GetComponent<EnemyAnimation>();
+        if (damageFlash == null)
+            damageFlash = GetComponent<DamageFlash>();
+        if (effectController == null)
+            effectController = GetComponent<EffectController>();
     }
 
     protected void PlayHitFlash()
@@ -60,6 +73,8 @@ public abstract class ZombieBase : MonoBehaviour, ITakeDamage
         attackTimer = 0f;
         houseX = GetHouseX();
         isAlive = true;
+        effectController.ClearAllEffects();
+        animator.ResetState();
     }
 
     protected virtual void Update()
@@ -79,6 +94,7 @@ public abstract class ZombieBase : MonoBehaviour, ITakeDamage
             return;
         }
 
+        animator.SetMoving(false);
         if (attackTimer <= 0f)
         {
             Attack(target);
@@ -176,9 +192,9 @@ public abstract class ZombieBase : MonoBehaviour, ITakeDamage
     protected virtual void Die()
     {
         isAlive = false;
+        effectController.ClearAllEffects();
         animator.Die();
-        DOVirtual.DelayedCall(1f, () => SimplePool.Despawn(gameObject));
-        SimplePool.Despawn(gameObject);
+        DOVirtual.DelayedCall(1f, () => SimplePool.Despawn(gameObject)).SetLink(gameObject);
     }
 
     private float GetHouseX()

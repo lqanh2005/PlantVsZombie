@@ -7,6 +7,13 @@ public class EnemyAnimation : MonoBehaviour
 
     private bool isDead;
 
+    public void ResetState()
+    {
+        isDead = false;
+        animator.Rebind();
+        animator.Update(0f);
+    }
+
     public void SetMoving(bool isMoving)
     {
         if (isDead) return;
@@ -38,6 +45,12 @@ public class EnemyAnimation : MonoBehaviour
         animator.SetBool("IsMoving", false);
         animator.SetTrigger("Die");
     }
+    private void Awake()
+    {
+        if (animator == null)
+            animator = GetComponent<Animator>();
+    }
+
     private void OnValidate()
     {
         if (animator == null)

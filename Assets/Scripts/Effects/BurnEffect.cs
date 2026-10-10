@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class BurnEffect : StatusEffect
 {
-    private float tickTimer;
-
     public override EffectType EffectType => EffectType.Burn;
 
     public override void OnApply(ZombieBase target)

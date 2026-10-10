@@ -106,6 +106,9 @@ GameObject:
   - component: {fileID: 7788160993830495493}
   - component: {fileID: 4992669789570827996}
   - component: {fileID: 2266094976263427162}
+  - component: {fileID: 8854119382732217697}
+  - component: {fileID: 4838125808774944903}
+  - component: {fileID: 7602004669014792979}
   m_Layer: 0
   m_Name: Gloom
   m_TagString: Untagged
@@ -169,6 +172,8 @@ MonoBehaviour:
   enemyId: 1
   enemyType: 1
   currentHealth: 0
+  animator: {fileID: 8854119382732217697}
+  effectController: {fileID: 7602004669014792979}
   laneHalfWidth: 0.4
   detectHeight: 2
   houseOffset: 1
@@ -199,6 +204,47 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.9854214, y: 1.6913828, z: 1.4948444}
   m_Center: {x: 0.0000002397306, y: 0.89372134, z: -0.041861773}
+--- !u!114 &8854119382732217697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4381087031543030135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44e01b52558a6614a8b30b1d5c43eb45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyAnimation
+  animator: {fileID: 7788160993830495493}
+--- !u!114 &4838125808774944903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4381087031543030135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfbfae01a798f0e47a8696ea52d854ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DamageFlash
+  flashColor: {r: 1, g: 0.25, b: 0.25, a: 1}
+  flashDuration: 0.08
+  flashCount: 2
+--- !u!114 &7602004669014792979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4381087031543030135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfb6663dac577c241a1a86dd785fc14b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EffectController
+  zombie: {fileID: 4992669789570827996}
 --- !u!1 &4985851714928641374
 GameObject:
   m_ObjectHideFlags: 0

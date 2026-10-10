@@ -17,6 +17,7 @@ public class Sun : MonoBehaviour
     private bool originalKinematic;
     private Collider sunCollider;
     private Sequence collectSequence;
+    private Sequence fallSequence;
 
     private void Awake()
     {
@@ -48,6 +49,22 @@ public class Sun : MonoBehaviour
     {
         collectSequence?.Kill();
         collectSequence = null;
+        fallSequence?.Kill();
+        fallSequence = null;
+    }
+
+    public void FallTo(Vector3 target, float duration, float groundLifetime)
+    {
+        if (body != null)
+            body.isKinematic = true;
+
+        fallSequence?.Kill();
+        fallSequence = DOTween.Sequence()
+            .Append(transform.DOMove(target, duration).SetEase(Ease.Linear))
+            .AppendInterval(groundLifetime)
+            .Append(transform.DOScale(Vector3.zero, 0.3f).SetEase(Ease.InBack))
+            .OnComplete(() => SimplePool.Despawn(gameObject))
+            .SetLink(gameObject);
     }
 
     public void Collect()
@@ -56,6 +73,8 @@ public class Sun : MonoBehaviour
             return;
 
         isCollected = true;
+        fallSequence?.Kill();
+        fallSequence = null;
 
         if (sunCollider != null)
             sunCollider.enabled = false;

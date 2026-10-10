@@ -8,7 +8,7 @@ public class SunClickHandler : MonoBehaviour
     [SerializeField] private LayerMask sunLayer = ~0;
     private void Update()
     {
-        if (Mouse.current == null)
+        if (Mouse.current == null || Time.timeScale == 0f)
             return;
 
         if (Mouse.current.leftButton.wasPressedThisFrame)

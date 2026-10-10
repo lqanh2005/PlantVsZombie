@@ -42,7 +42,18 @@ public class PlantCard : MonoBehaviour
 
     public void Init()
     {
-        PlantData data = PlantDatabase.Instance.GetPlantDataByType(plantType, plantId);
+        Setup(PlantDatabase.Instance.GetPlantDataByType(plantType, plantId));
+    }
+
+    public void Init(PlantType type, int id)
+    {
+        plantType = type;
+        plantId = id;
+        Setup(PlantDatabase.Instance.GetPlantData(type, id));
+    }
+
+    private void Setup(PlantData data)
+    {
         if (data == null)
         {
             btn.interactable = false;
@@ -91,6 +102,7 @@ public class PlantCard : MonoBehaviour
 
     private void Setup()
     {
+        btn.interactable = true;
         cooldownTimer = 0f;
         isSelected = false;
         EnsureCooldownOverlay();

@@ -27,6 +27,7 @@ public class PlantCardUI : MonoBehaviour
     private Canvas rootCanvas;
     private bool isSelected;
     private bool isMoving;
+    private System.Action<PlantCardUI> clickAction;
 
     public bool IsSelected => isSelected;
 
@@ -55,8 +56,37 @@ public class PlantCardUI : MonoBehaviour
         if (isSelected || isMoving)
             return;
 
+        if (clickAction != null)
+        {
+            clickAction(this);
+            return;
+        }
+
         HomeController.Instance.selectedSeedGrid
             .TrySelectPlant(this);
+    }
+
+    public void SetClickAction(System.Action<PlantCardUI> action)
+    {
+        clickAction = action;
+    }
+
+    public void SnapToSlot(RectTransform targetSlot)
+    {
+        rectTransform.DOKill();
+        isMoving = false;
+        AttachToSlot(targetSlot);
+    }
+
+    private void AttachToSlot(RectTransform targetSlot)
+    {
+        rectTransform.SetParent(targetSlot, false);
+        rectTransform.anchorMin = Vector2.zero;
+        rectTransform.anchorMax = Vector2.one;
+        rectTransform.offsetMin = Vector2.zero;
+        rectTransform.offsetMax = Vector2.zero;
+        rectTransform.localScale = Vector3.one;
+        rectTransform.localRotation = Quaternion.identity;
     }
 
     public void SetSelected(bool selected)
@@ -98,15 +128,7 @@ public class PlantCardUI : MonoBehaviour
             .SetEase(Ease.OutCubic)
             .OnComplete(() =>
             {
-                rectTransform.SetParent(targetSlot, false);
-
-                rectTransform.anchorMin = Vector2.zero;
-                rectTransform.anchorMax = Vector2.one;
-                rectTransform.offsetMin = Vector2.zero;
-                rectTransform.offsetMax = Vector2.zero;
-                rectTransform.localScale = Vector3.one;
-                rectTransform.localRotation = Quaternion.identity;
-
+                AttachToSlot(targetSlot);
                 isMoving = false;
             });
     }

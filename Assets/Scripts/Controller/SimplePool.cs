@@ -146,6 +146,11 @@ public static class SimplePool
 
     public static void Despawn(GameObject obj)
     {
+        if (obj == null)
+            return;
+
+        Init();
+
         Pool p = null;
         foreach (var pool in _pools.Values)
         {
