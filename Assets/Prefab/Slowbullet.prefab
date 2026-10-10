@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8097529805599375700}
   - component: {fileID: 3814144997417826856}
   - component: {fileID: 4186116959594339164}
-  - component: {fileID: -6013245164143777090}
+  - component: {fileID: 936934747004129654}
   m_Layer: 3
   m_Name: Slowbullet
   m_TagString: Untagged
@@ -141,7 +141,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 72
   m_CollisionDetection: 0
---- !u!114 &-6013245164143777090
+--- !u!114 &936934747004129654
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -152,5 +152,15 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b285363d0c78a6e4eac60521af5ab96e, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PeaBullet
+  m_EditorClassIdentifier: Assembly-CSharp::NormalBullet
   lifeTime: 5
+  effectData:
+    bulletId: 0
+    bulletName: 
+    bulletPrefab: {fileID: 0}
+    damage: 20
+    speed: 8
+    effectType: 0
+    effectValue: 0
+    effectDuration: 0
+  effectType: 3

@@ -27,7 +27,7 @@ MonoBehaviour:
     damage: 20
     speed: 8
     effectType: 3
-    effectValue: 40
+    effectValue: 0.4
     effectDuration: 2
   - bulletId: 3
     bulletName: Burn
@@ -36,12 +36,12 @@ MonoBehaviour:
     speed: 8
     effectType: 1
     effectValue: 5
-    effectDuration: 3
+    effectDuration: 1
   - bulletId: 4
     bulletName: ArrmorBreak
     bulletPrefab: {fileID: 7096535160839244418, guid: 94ec2508a66db8942baedf11f92e5ddd, type: 3}
     damage: 20
     speed: 8
     effectType: 2
-    effectValue: 30
+    effectValue: 0.3
     effectDuration: 4

@@ -16,7 +16,6 @@ public class EffectController : MonoBehaviour
     {
         if (effectData == null || zombie == null || !zombie.isAlive)
             return;
-
         StatusEffect effect = CreateEffect(effectData.effectType);
 
         if (effect == null)
@@ -62,7 +61,6 @@ public class EffectController : MonoBehaviour
 
         foreach (StatusEffect effect in activeEffects)
             multiplier *= effect.MoveSpeedMultiplier;
-
         return multiplier;
     }
 
@@ -85,7 +83,8 @@ public class EffectController : MonoBehaviour
 
             case EffectType.Slow:
                 return new SlowEffect();
-
+            case EffectType.ArmorBreak:
+                return new ArmorBreakEffect();
             default:
                 Debug.LogWarning($"Unsupported effect type: {type}");
                 return null;

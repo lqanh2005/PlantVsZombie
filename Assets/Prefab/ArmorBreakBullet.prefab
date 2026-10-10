@@ -154,3 +154,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PeaBullet
   lifeTime: 5
+  effectData:
+    bulletId: 0
+    bulletName: 
+    bulletPrefab: {fileID: 0}
+    damage: 20
+    speed: 8
+    effectType: 0
+    effectValue: 0
+    effectDuration: 0
+  effectType: 2

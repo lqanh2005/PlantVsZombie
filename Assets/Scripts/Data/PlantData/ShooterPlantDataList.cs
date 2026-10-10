@@ -9,7 +9,6 @@ public class ShooterPlantDataList : ScriptableObject
 [System.Serializable]
 public class ShooterPlantData : PlantData
 {
-
     public EffectType effectType;
     public float damage;
     public float attackCooldown;

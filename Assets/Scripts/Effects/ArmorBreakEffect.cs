@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class SlowEffect : StatusEffect
+public class ArmorBreakEffect : StatusEffect
 {
-    public override EffectType EffectType => EffectType.Slow;
+    public override EffectType EffectType => EffectType.ArmorBreak;
 
-    public override float MoveSpeedMultiplier
+    public override float ArmorMultiplier
     {
         get
         {
@@ -18,5 +18,4 @@ public class SlowEffect : StatusEffect
             return;
         elapsedTime += Time.deltaTime;
     }
-
 }

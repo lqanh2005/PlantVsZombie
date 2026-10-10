@@ -159,10 +159,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Peashooter
   plantId: 1
   plantType: 0
-  effectType: 1
+  effectType: 0
   currentHealth: 0
   laneHalfWidth: 0.4
   detectHeight: 2
-  bulletPrefab: {fileID: 7096535160839244418, guid: 34ac435ab4fa3f544804120fa09f56b3, type: 3}
+  bulletPrefab: {fileID: 7096535160839244418, guid: e212f34eba7c83242b06774738893f9d, type: 3}
   firePoint: {fileID: 5624371198849449369}
   bulletSpeed: 8

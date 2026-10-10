@@ -93,16 +93,32 @@ public abstract class ZombieBase : MonoBehaviour, ITakeDamage
             float multiplier = effectController != null
                 ? effectController.GetMoveSpeedMultiplier()
                 : 1f;
-
             return data.speed * multiplier;
+        }
+    }
+    protected virtual float Armor
+    {
+        get
+        {
+            float multiplier = effectController != null
+                ? effectController.GetArmorMultiplier()
+                : 1f;
+            return data.armor * multiplier;
         }
     }
 
     protected virtual void Move()
     {
-        transform.Translate(Vector3.left * MoveSpeed * Time.deltaTime, Space.World);
+        float currentSpeed = MoveSpeed;
+
+        transform.Translate(
+            Vector3.left * currentSpeed * Time.deltaTime,
+            Space.World
+        );
+
         if (transform.position.x <= houseX)
             OnReachHouse();
+
         animator.SetMoving(true);
     }
 
@@ -154,7 +170,7 @@ public abstract class ZombieBase : MonoBehaviour, ITakeDamage
 
     protected float ApplyArmor(float damage)
     {
-        return damage * 100f / (100f + Mathf.Max(0f, data.armor));
+        return damage * 100f / (100f + Mathf.Max(0f, Armor));
     }
 
     protected virtual void Die()
