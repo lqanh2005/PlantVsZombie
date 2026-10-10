@@ -51,4 +51,29 @@ public class PlantDatabase : SingletonScriptableObject<PlantDatabase>
                 return null;
         }
     }
+    public List<PlantData> GetAllPlantData()
+    {
+        List<PlantData> result = new List<PlantData>();
+
+        AddRangeIfNotNull(result, shooterPlantDataList?.shooterPlantDataList);
+        AddRangeIfNotNull(result, explosivePlantDataList?.explosivePlantDataList);
+        AddRangeIfNotNull(result, sunProducerDataList?.sunProducerDataList);
+        AddRangeIfNotNull(result, defenderPlantDataList?.defenderPlantDataList);
+
+        return result;
+    }
+
+    private void AddRangeIfNotNull(
+        List<PlantData> result,
+        IReadOnlyList<PlantData> source)
+    {
+        if (source == null)
+            return;
+
+        for (int i = 0; i < source.Count; i++)
+        {
+            if (source[i] != null)
+                result.Add(source[i]);
+        }
+    }
 }
