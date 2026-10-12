@@ -22,7 +22,33 @@ MonoBehaviour:
     health: 300
     armor: 20
     rechargeTime: 7.5
-    effectType: 1
+    effectType: 0
     damage: 20
     attackCooldown: 1.5
+    attackRange: 20
+  - plantId: 2
+    plantName: Repeater
+    icon: {fileID: 21300000, guid: a5d6ad2baed2abd40891f2a2056b220a, type: 3}
+    plantType: 0
+    plantPrefab: {fileID: 126693981205402911, guid: ad89dcc18f50a074cbefc462f6083f44, type: 3}
+    sunCost: 200
+    health: 300
+    armor: 20
+    rechargeTime: 5
+    effectType: 0
+    damage: 20
+    attackCooldown: 1.5
+    attackRange: 20
+  - plantId: 3
+    plantName: Cannon
+    icon: {fileID: 21300000, guid: 3bc17bbab0102ef4aa3ec5113cf6ceca, type: 3}
+    plantType: 0
+    plantPrefab: {fileID: 5604559853729818997, guid: a639e8afe5b431641b6c0f99f08ab71a, type: 3}
+    sunCost: 400
+    health: 300
+    armor: 20
+    rechargeTime: 7.5
+    effectType: 4
+    damage: 90
+    attackCooldown: 15
     attackRange: 20

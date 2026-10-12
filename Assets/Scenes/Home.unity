@@ -1237,6 +1237,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LevelButtonUI
   btn: {fileID: 226166738}
   levelTxt: {fileID: 541349337}
+  lockedTextColor: {r: 1, g: 1, b: 1, a: 0.35}
 --- !u!114 &226166738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6125,6 +6126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2d28a5d032a43d4aae34a6241253351, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SelectedSeedGrid
+  slotContainer: {fileID: 0}
   slots: []
   selectedCardPrefab: {fileID: 0}
 --- !u!1 &1551153396

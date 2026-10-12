@@ -3535,7 +3535,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0245b955d90de4840a2034d9a23f1175, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SunManager
-  startingSun: 150
+  startingSun: 400
   sunText: {fileID: 972011638}
   sunFormat: '{0}'
   punchScale: 0.15

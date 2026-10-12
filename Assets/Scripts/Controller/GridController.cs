@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class GridController : MonoBehaviour
 {
-    public GameObject gridParent;
-    public GameObject tilePrefab;
+    [SerializeField] private GameObject gridParent;
+    [SerializeField] private GameObject tilePrefab;
     [SerializeField] int cols = 9;
     [SerializeField] int rows = 5;
     public int Rows => rows;
@@ -43,13 +43,20 @@ public class GridController : MonoBehaviour
     public bool TryGetTile(Vector3 worldPosition, out int row, out int col)
     {
         float tileWidth = boardWidth / cols;
-        float tileHeight = boardDepth / rows;
-        Vector3 local = this.transform.InverseTransformPoint(worldPosition);
-        col = Mathf.FloorToInt((local.x + boardWidth / 2f) / tileWidth);
-        int gridRowBottom = Mathf.FloorToInt((local.z + boardDepth / 2f) / tileHeight);
-        row = rows -1 - gridRowBottom;
+        float tileDepth = boardDepth / rows;
+
+        Vector3 local = transform.InverseTransformPoint(worldPosition);
+
+        col = Mathf.FloorToInt(
+            (local.x + boardWidth / 2f) / tileWidth
+        );
+
+        row = Mathf.FloorToInt(
+            (local.z + boardDepth / 2f) / tileDepth
+        );
+
         return row >= 0 && row < rows &&
-           col >= 0 && col < cols;
+               col >= 0 && col < cols;
     }
     public Vector3 GetCellCenterWorld(int row, int col)
     {
@@ -59,7 +66,7 @@ public class GridController : MonoBehaviour
         Vector3 localPosition = new Vector3(
             -boardWidth / 2f + (col + 0.5f) * tileWidth,
             0f,
-            -boardDepth / 2f + (rows - row - 0.5f) * tileDepth
+            -boardDepth / 2f + (row + 0.5f) * tileDepth
         );
 
         return transform.TransformPoint(localPosition);

@@ -32,5 +32,6 @@ public enum EffectType
     Normal,
     Burn,
     ArmorBreak,
-    Slow
+    Slow,
+    Explosion
 }

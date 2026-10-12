@@ -4,9 +4,26 @@ using UnityEngine;
 public class PlantDatabase : SingletonScriptableObject<PlantDatabase>
 {
     public ShooterPlantDataList shooterPlantDataList;
-    public ExplosivePlantDataList explosivePlantDataList;
     public SunProducerDataList sunProducerDataList;
     public DefenderPlantDataList defenderPlantDataList;
+
+
+    //[SerializeField] List<PlantData> plantDatas;
+
+    //Dictionary<PlantType, List<PlantData>> plantDataDictionary = new Dictionary<PlantType, List<PlantData>>();
+    //private void OnEnable()
+    //{
+    //    foreach (PlantData plantData in plantDatas)
+    //    {
+    //        if (plantData == null) continue;
+
+    //        if (!plantDataDictionary.ContainsKey(plantData.plantType))
+    //        {
+    //            plantDataDictionary[plantData.plantType] = new List<PlantData>();
+    //        }
+    //        plantDataDictionary[plantData.plantType].Add(plantData);
+    //    }
+    //}
 
     public PlantData GetPlantDataByType(PlantType plantType, int index)
     {
@@ -41,8 +58,6 @@ public class PlantDatabase : SingletonScriptableObject<PlantDatabase>
         {
             case PlantType.Shooter:
                 return shooterPlantDataList != null ? shooterPlantDataList.shooterPlantDataList : null;
-            case PlantType.Explosive:
-                return explosivePlantDataList != null ? explosivePlantDataList.explosivePlantDataList : null;
             case PlantType.SunProducer:
                 return sunProducerDataList != null ? sunProducerDataList.sunProducerDataList : null;
             case PlantType.Defense:
@@ -56,7 +71,6 @@ public class PlantDatabase : SingletonScriptableObject<PlantDatabase>
         List<PlantData> result = new List<PlantData>();
 
         AddRangeIfNotNull(result, shooterPlantDataList?.shooterPlantDataList);
-        AddRangeIfNotNull(result, explosivePlantDataList?.explosivePlantDataList);
         AddRangeIfNotNull(result, sunProducerDataList?.sunProducerDataList);
         AddRangeIfNotNull(result, defenderPlantDataList?.defenderPlantDataList);
 

@@ -4,7 +4,7 @@ public abstract class ShooterPlantBase : PlantBase
 {
     [SerializeField] protected GameObject bulletPrefab;
     [SerializeField] protected Transform firePoint;
-    protected float attackTimer;
+     protected float attackTimer;
 
     protected ShooterPlantData ShooterData => (ShooterPlantData)data;
 
@@ -14,7 +14,8 @@ public abstract class ShooterPlantBase : PlantBase
         if (!isAlive)
             return;
 
-        attackTimer = ShooterData.attackCooldown;
+        attackTimer = 2f;
+        OnCooldownChanged(false);
     }
 
     protected virtual void Update()
@@ -29,6 +30,7 @@ public abstract class ShooterPlantBase : PlantBase
             Shoot();
             attackTimer = ShooterData.attackCooldown;
         }
+        OnCooldownChanged(attackTimer > 0f);
     }
 
     protected virtual bool CanAttack()
@@ -47,5 +49,9 @@ public abstract class ShooterPlantBase : PlantBase
         BulletBase bullet = projectile.GetComponent<BulletBase>();
         if (bullet != null)
             bullet.Init(this.effectType);
+    }
+    protected virtual void OnCooldownChanged(bool isCoolingDown)
+    {
+        
     }
 }

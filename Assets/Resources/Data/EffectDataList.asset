@@ -45,3 +45,11 @@ MonoBehaviour:
     effectType: 2
     effectValue: 0.3
     effectDuration: 4
+  - bulletId: 5
+    bulletName: Explose
+    bulletPrefab: {fileID: 8422046413091035848, guid: bbc76a9c3db8f854a8aee0bc53bb0fd7, type: 3}
+    damage: 90
+    speed: 8
+    effectType: 4
+    effectValue: 0
+    effectDuration: 0
