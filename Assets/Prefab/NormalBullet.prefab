@@ -19626,7 +19626,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 72
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &-6013245164143777090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19643,6 +19643,7 @@ MonoBehaviour:
   despawnVfx: {fileID: 1312591640859010, guid: 0e15a7d74c53f9548a16dd76ee6348dd, type: 3}
   vfxLifetime: 0
   playVfxOnExpire: 1
+  rb: {fileID: 4186116959594339164}
 --- !u!1 &7747177806024693754
 GameObject:
   m_ObjectHideFlags: 0

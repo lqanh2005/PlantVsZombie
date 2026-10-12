@@ -11,6 +11,7 @@ public abstract class BulletBase : MonoBehaviour
     [Tooltip("Thời gian tồn tại của VFX, <= 0 = tự tính theo ParticleSystem")]
     [SerializeField] protected float vfxLifetime = 0f;
     [SerializeField] protected bool playVfxOnExpire = true;
+    [SerializeField] protected Rigidbody rb;
 
     protected EffectData effectData;
     protected float damage;
@@ -40,12 +41,6 @@ public abstract class BulletBase : MonoBehaviour
         Setup(effectData.damage, Vector3.right, effectData.speed);
     }
 
-    public virtual void Init(float damage, Vector3 direction, float speed)
-    {
-        effectData = null;
-        Setup(damage, direction, speed);
-    }
-
     private void Setup(float damage, Vector3 direction, float speed)
     {
         this.damage = damage;
@@ -55,14 +50,23 @@ public abstract class BulletBase : MonoBehaviour
         hasHit = false;
     }
 
+    protected virtual void FixedUpdate()
+    {
+        if (hasHit || rb == null)
+            return;
+
+        rb.MovePosition(
+            rb.position + direction.normalized * speed * Time.fixedDeltaTime
+        );
+    }
+
     protected virtual void Update()
     {
         if (hasHit)
             return;
 
-        transform.Translate(direction * speed * Time.deltaTime, Space.World);
-
         lifeTimer -= Time.deltaTime;
+
         if (lifeTimer <= 0f)
             Despawn(playVfxOnExpire);
     }
@@ -81,14 +85,16 @@ public abstract class BulletBase : MonoBehaviour
 
     protected virtual bool TryHit(Collider other)
     {
-        ZombieBase zombie = other.GetComponentInParent<ZombieBase>();
-        if (zombie == null || !zombie.isAlive)
+        ITakeDamage target = other.GetComponentInParent<ITakeDamage>();
+
+        if (target == null)
             return false;
 
-        if (effectData != null)
-            zombie.GetEffect(effectData);
-
-        zombie.TakeDamage(damage);
+        if (effectData != null && target is IStatusEffectReceiver effectReceiver)
+        {
+            effectReceiver.ApplyEffect(effectData);
+        }
+        target.TakeDamage(damage);
         return true;
     }
 

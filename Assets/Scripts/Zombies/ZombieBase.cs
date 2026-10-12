@@ -1,10 +1,11 @@
 using DG.Tweening;
+using NUnit.Framework.Internal;
 using UnityEngine;
 
 [RequireComponent(typeof(EnemyAnimation))]
 [RequireComponent(typeof(DamageFlash))]
 [RequireComponent(typeof(EffectController))]
-public abstract class ZombieBase : MonoBehaviour, ITakeDamage
+public abstract class ZombieBase : MonoBehaviour, ITakeDamage, IStatusEffectReceiver
 {
     [SerializeField] protected int enemyId;
     [SerializeField] protected EnemyType enemyType;
@@ -27,6 +28,7 @@ public abstract class ZombieBase : MonoBehaviour, ITakeDamage
     protected float houseX;
     protected DamageFlash damageFlash;
     public bool isAlive { get; private set; }
+    public bool IsAlive => isAlive;
 
     protected abstract float AttackRange { get; }
     protected abstract float AttackCooldown { get; }
@@ -202,9 +204,9 @@ public abstract class ZombieBase : MonoBehaviour, ITakeDamage
         GridController grid = GamePlayController.Instance.playerContain.grid;
         return grid.transform.TransformPoint(new Vector3(-grid.boardWidth / 2f, 0f, 0f)).x - houseOffset;
     }
-    public void GetEffect(EffectData effect)
-    {
-        effectController.ApplyEffect(effect);
-    }
 
+    public void ApplyEffect(EffectData effectData)
+    {
+        effectController.ApplyEffect(effectData);
+    }
 }

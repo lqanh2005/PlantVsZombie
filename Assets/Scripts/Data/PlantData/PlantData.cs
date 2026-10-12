@@ -1,7 +1,8 @@
 using System;
 using UnityEngine;
 
-public class PlantData
+[System.Serializable]
+public class PlantData : ScriptableObject
 {
     [Header("Thông tin")]
     public int plantId;

@@ -8,22 +8,24 @@ public class PlantDatabase : SingletonScriptableObject<PlantDatabase>
     public DefenderPlantDataList defenderPlantDataList;
 
 
-    //[SerializeField] List<PlantData> plantDatas;
+    [SerializeField] List<PlantData> plantDatas = new List<PlantData>();
 
-    //Dictionary<PlantType, List<PlantData>> plantDataDictionary = new Dictionary<PlantType, List<PlantData>>();
-    //private void OnEnable()
-    //{
-    //    foreach (PlantData plantData in plantDatas)
-    //    {
-    //        if (plantData == null) continue;
+    Dictionary<PlantType, List<PlantData>> plantDataDictionary = new Dictionary<PlantType, List<PlantData>>();
+    private void OnEnable()
+    {
+        plantDataDictionary.Clear();
+        if (plantDatas == null) return;
+        foreach (PlantData plantData in plantDatas)
+        {
+            if (plantData == null) continue;
 
-    //        if (!plantDataDictionary.ContainsKey(plantData.plantType))
-    //        {
-    //            plantDataDictionary[plantData.plantType] = new List<PlantData>();
-    //        }
-    //        plantDataDictionary[plantData.plantType].Add(plantData);
-    //    }
-    //}
+            if (!plantDataDictionary.ContainsKey(plantData.plantType))
+            {
+                plantDataDictionary[plantData.plantType] = new List<PlantData>();
+            }
+            plantDataDictionary[plantData.plantType].Add(plantData);
+        }
+    }
 
     public PlantData GetPlantDataByType(PlantType plantType, int index)
     {

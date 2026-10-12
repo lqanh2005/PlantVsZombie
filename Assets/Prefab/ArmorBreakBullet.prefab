@@ -140,7 +140,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 72
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &-6013245164143777090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,13 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PeaBullet
   lifeTime: 5
-  effectData:
-    bulletId: 0
-    bulletName: 
-    bulletPrefab: {fileID: 0}
-    damage: 20
-    speed: 8
-    effectType: 0
-    effectValue: 0
-    effectDuration: 0
-  effectType: 2
+  despawnVfx: {fileID: 0}
+  vfxLifetime: 0
+  playVfxOnExpire: 1
+  rb: {fileID: 4186116959594339164}

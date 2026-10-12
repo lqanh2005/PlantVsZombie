@@ -17,7 +17,7 @@ MonoBehaviour:
     bulletName: Norrmal
     bulletPrefab: {fileID: 7096535160839244418, guid: e212f34eba7c83242b06774738893f9d, type: 3}
     damage: 20
-    speed: 8
+    speed: 15
     effectType: 0
     effectValue: 0
     effectDuration: 0
@@ -25,7 +25,7 @@ MonoBehaviour:
     bulletName: Slow
     bulletPrefab: {fileID: 7096535160839244418, guid: 88dc939bdd2d1624bb258f18d0eafd6c, type: 3}
     damage: 20
-    speed: 8
+    speed: 15
     effectType: 3
     effectValue: 0.4
     effectDuration: 2
@@ -33,7 +33,7 @@ MonoBehaviour:
     bulletName: Burn
     bulletPrefab: {fileID: 7096535160839244418, guid: 34ac435ab4fa3f544804120fa09f56b3, type: 3}
     damage: 15
-    speed: 8
+    speed: 15
     effectType: 1
     effectValue: 5
     effectDuration: 1
@@ -41,15 +41,15 @@ MonoBehaviour:
     bulletName: ArrmorBreak
     bulletPrefab: {fileID: 7096535160839244418, guid: 94ec2508a66db8942baedf11f92e5ddd, type: 3}
     damage: 20
-    speed: 8
+    speed: 15
     effectType: 2
     effectValue: 0.3
     effectDuration: 4
   - bulletId: 5
     bulletName: Explose
     bulletPrefab: {fileID: 8422046413091035848, guid: bbc76a9c3db8f854a8aee0bc53bb0fd7, type: 3}
-    damage: 90
-    speed: 8
+    damage: 1000
+    speed: 15
     effectType: 4
     effectValue: 0
     effectDuration: 0

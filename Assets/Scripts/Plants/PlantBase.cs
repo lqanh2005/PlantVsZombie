@@ -5,7 +5,7 @@ public abstract class PlantBase : MonoBehaviour, ITakeDamage
     [SerializeField] protected int plantId;
     [SerializeField] protected PlantType plantType;
     [SerializeField] protected EffectType effectType;
-
+    [SerializeField] protected LayerMask zombieLayer;
     [SerializeField] protected float currentHealth;
 
     [Header("Phát hiện zombie")]
@@ -74,25 +74,16 @@ public abstract class PlantBase : MonoBehaviour, ITakeDamage
 
     protected ZombieBase FindZombieInFront(float range)
     {
-        Vector3 center = transform.position + Vector3.right * range * 0.5f + Vector3.up * detectHeight * 0.5f;
-        Vector3 halfExtents = new Vector3(range * 0.5f, detectHeight * 0.5f, laneHalfWidth);
-        Collider[] hits = Physics.OverlapBox(center, halfExtents, Quaternion.identity, ~0, QueryTriggerInteraction.Collide);
-
-        ZombieBase nearest = null;
-        float nearestDistance = float.MaxValue;
-        foreach (Collider hit in hits)
+        Vector3 origin = transform.position + Vector3.up * (detectHeight * 0.5f);
+        Vector3 direction = Vector3.right;
+        if (Physics.Raycast(origin, direction, out RaycastHit hit, range, zombieLayer, QueryTriggerInteraction.Collide))
         {
-            ZombieBase zombie = hit.GetComponentInParent<ZombieBase>();
-            if (zombie == null || !zombie.isAlive)
-                continue;
+            ZombieBase zombie = hit.collider.GetComponentInParent<ZombieBase>();
 
-            float distance = zombie.transform.position.x - transform.position.x;
-            if (distance < 0f || distance >= nearestDistance)
-                continue;
-
-            nearest = zombie;
-            nearestDistance = distance;
+            if (zombie != null && zombie.isAlive)
+                return zombie;
         }
-        return nearest;
+
+        return null;
     }
 }

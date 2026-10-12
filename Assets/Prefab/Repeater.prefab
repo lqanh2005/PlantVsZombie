@@ -129,6 +129,9 @@ MonoBehaviour:
   plantId: 2
   plantType: 0
   effectType: 0
+  zombieLayer:
+    serializedVersion: 2
+    m_Bits: 64
   currentHealth: 0
   laneHalfWidth: 0.4
   detectHeight: 2

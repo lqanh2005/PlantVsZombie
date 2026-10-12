@@ -29366,7 +29366,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 72
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &2385913452640501448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29383,3 +29383,4 @@ MonoBehaviour:
   despawnVfx: {fileID: 1262490536792160, guid: b364b2e1b67030b41b0d034b293f04cf, type: 3}
   vfxLifetime: 0
   playVfxOnExpire: 1
+  rb: {fileID: 5184091048618205518}
