@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: PlantDatabase
   m_EditorClassIdentifier: Assembly-CSharp::PlantDatabase
   shooterPlantDataList: {fileID: 11400000, guid: 7dc08f9b6ad4ce04da94222d1e6b4a72, type: 2}
-  explosivePlantDataList: {fileID: 0}
   sunProducerDataList: {fileID: 11400000, guid: f27d4fd635228a348af500a3297a2a1b, type: 2}
   defenderPlantDataList: {fileID: 11400000, guid: add33fa23fc9b7045b69492652235ef7, type: 2}
+  plantDatas:
+  - {fileID: 0}

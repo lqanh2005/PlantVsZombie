@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f286fd3e13e73ea46bf0737469eb9889, type: 3}
+  m_Name: 5_CoconutCannonSO
+  m_EditorClassIdentifier: Assembly-CSharp::CoconutCannonSO
+  plantId: 5
+  plantName: Coconut Cannon
+  icon: {fileID: 21300000, guid: 3bc17bbab0102ef4aa3ec5113cf6ceca, type: 3}
+  plantType: 0
+  plantPrefab: {fileID: 5604559853729818997, guid: a639e8afe5b431641b6c0f99f08ab71a, type: 3}
+  sunCost: 400
+  health: 300
+  armor: 20
+  rechargeTime: 5
+  damage: 900
+  attackCooldown: 15
+  attackRange: 10
