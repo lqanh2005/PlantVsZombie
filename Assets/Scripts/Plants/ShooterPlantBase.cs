@@ -4,18 +4,26 @@ public abstract class ShooterPlantBase : PlantBase
 {
     [SerializeField] protected GameObject bulletPrefab;
     [SerializeField] protected Transform firePoint;
-     protected float attackTimer;
+    protected float attackTimer;
+    protected bool hasFired;
 
     protected ShooterPlantData ShooterData => (ShooterPlantData)data;
+    protected virtual float InitialAttackDelay => 2f;
 
-    public override void Init()
+    public override void Init(PlantData data)
     {
-        base.Init();
+        base.Init(data);
         if (!isAlive)
             return;
 
-        attackTimer = 2f;
+        attackTimer = InitialAttackDelay;
+        hasFired = false;
         OnCooldownChanged(false);
+    }
+
+    protected override bool IsValidData(PlantData data)
+    {
+        return data is ShooterPlantData;
     }
 
     protected virtual void Update()
@@ -28,9 +36,10 @@ public abstract class ShooterPlantBase : PlantBase
         if (attackTimer <= 0f && CanAttack())
         {
             Shoot();
+            hasFired = true;
             attackTimer = ShooterData.attackCooldown;
         }
-        OnCooldownChanged(attackTimer > 0f);
+        OnCooldownChanged(hasFired && attackTimer > 0f);
     }
 
     protected virtual bool CanAttack()
@@ -40,7 +49,12 @@ public abstract class ShooterPlantBase : PlantBase
 
     protected virtual void Shoot()
     {
-        if (bulletPrefab == null)
+        SpawnBullet();
+    }
+
+    protected void SpawnBullet()
+    {
+        if (bulletPrefab == null || !isAlive)
             return;
 
         Vector3 spawnPosition = firePoint != null ? firePoint.position : transform.position + Vector3.up;
@@ -48,7 +62,13 @@ public abstract class ShooterPlantBase : PlantBase
 
         BulletBase bullet = projectile.GetComponent<BulletBase>();
         if (bullet != null)
-            bullet.Init(this.effectType);
+            bullet.Init(ShooterData.damage, Vector3.right, ShooterData.bulletSpeed, GetBulletEffect());
+    }
+
+    private EffectData GetBulletEffect()
+    {
+        EffectType type = ShooterData.effectType;
+        return type == EffectType.Normal ? null : EffectDataList.Instance.GetEffectDataByType(type);
     }
     protected virtual void OnCooldownChanged(bool isCoolingDown)
     {

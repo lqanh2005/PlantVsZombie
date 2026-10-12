@@ -11,45 +11,9 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c764408fd152f844daf6d74b81492a8e, type: 3}
   m_Name: EffectDataList
-  m_EditorClassIdentifier: Assembly-CSharp::BulletDataList
-  bulletDataList:
-  - bulletId: 1
-    bulletName: Norrmal
-    bulletPrefab: {fileID: 7096535160839244418, guid: e212f34eba7c83242b06774738893f9d, type: 3}
-    damage: 20
-    speed: 15
-    effectType: 0
-    effectValue: 0
-    effectDuration: 0
-  - bulletId: 2
-    bulletName: Slow
-    bulletPrefab: {fileID: 7096535160839244418, guid: 88dc939bdd2d1624bb258f18d0eafd6c, type: 3}
-    damage: 20
-    speed: 15
-    effectType: 3
-    effectValue: 0.4
-    effectDuration: 2
-  - bulletId: 3
-    bulletName: Burn
-    bulletPrefab: {fileID: 7096535160839244418, guid: 34ac435ab4fa3f544804120fa09f56b3, type: 3}
-    damage: 15
-    speed: 15
-    effectType: 1
-    effectValue: 5
-    effectDuration: 1
-  - bulletId: 4
-    bulletName: ArrmorBreak
-    bulletPrefab: {fileID: 7096535160839244418, guid: 94ec2508a66db8942baedf11f92e5ddd, type: 3}
-    damage: 20
-    speed: 15
-    effectType: 2
-    effectValue: 0.3
-    effectDuration: 4
-  - bulletId: 5
-    bulletName: Explose
-    bulletPrefab: {fileID: 8422046413091035848, guid: bbc76a9c3db8f854a8aee0bc53bb0fd7, type: 3}
-    damage: 1000
-    speed: 15
-    effectType: 4
-    effectValue: 0
-    effectDuration: 0
+  m_EditorClassIdentifier: Assembly-CSharp::EffectDataList
+  effectDatas:
+  - {fileID: 11400000, guid: 7b5f83f502fe4b368e038d303cee001b, type: 2}
+  - {fileID: 11400000, guid: 6922790fa0f747698059cb77dedccca4, type: 2}
+  - {fileID: 11400000, guid: be083813aed24da39788ddfdf0638507, type: 2}
+  - {fileID: 11400000, guid: 93d6c6ff515e4be68e1dd37a49811ba2, type: 2}

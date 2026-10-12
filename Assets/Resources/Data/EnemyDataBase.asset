@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0f29a478b29d6f42a537e3b73d1234e, type: 3}
   m_Name: EnemyDataBase
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDataBase
-  meleEnemyDataList: {fileID: 11400000, guid: 7515fce3fd25e4d46937862c9b8236a2, type: 2}
-  rangedEnemyDataList: {fileID: 11400000, guid: 69284c2c38a017e4e8005b0777dcc85b, type: 2}
-  tankEnemyDataList: {fileID: 11400000, guid: b2644efb443b50c47b9f0cc421423f00, type: 2}
+  enemyDatas:
+  - {fileID: 11400000, guid: f962367c86aa4c5393b94da7cb5b97bd, type: 2}
+  - {fileID: 11400000, guid: e6bbd3af466848398347ae10b5b22301, type: 2}
+  - {fileID: 11400000, guid: b07e993e355e4491b7466fc5f7be4de5, type: 2}

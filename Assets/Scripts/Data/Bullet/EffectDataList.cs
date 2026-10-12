@@ -1,37 +1,54 @@
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 
 [CreateAssetMenu(fileName = "EffectDataList", menuName = "Bullet/EffectDataList")]
 public class EffectDataList : SingletonScriptableObject<EffectDataList>
 {
-    public List<EffectData> bulletDataList;
+    [SerializeField] List<EffectData> effectDatas = new List<EffectData>();
+
+    readonly Dictionary<EffectType, EffectData> effectDataDictionary = new Dictionary<EffectType, EffectData>();
+
+    private void OnEnable()
+    {
+        BuildDictionary();
+    }
+
+    private void OnValidate()
+    {
+        BuildDictionary();
+    }
+
+    private void BuildDictionary()
+    {
+        effectDataDictionary.Clear();
+        if (effectDatas == null) return;
+
+        foreach (EffectData effectData in effectDatas)
+        {
+            if (effectData == null) continue;
+            effectDataDictionary[effectData.effectType] = effectData;
+        }
+    }
+
     public EffectData GetEffectDataByType(EffectType type)
     {
-        return bulletDataList.Find(data => data.effectType == type);
+        if (effectDataDictionary.TryGetValue(type, out EffectData effectData))
+            return effectData;
+
+        Debug.LogError($"Effect data not found: type {type}.");
+        return null;
     }
-}
-[System.Serializable]
-public class EffectData
-{
-    [Header("Basic")]
-    public int bulletId;
-    public string bulletName;
-    public GameObject bulletPrefab;
 
-    [Header("Combat")]
-    public float damage = 20f;
-    public float speed = 8f;
+    public List<EffectData> GetAllEffectData()
+    {
+        List<EffectData> result = new List<EffectData>();
+        if (effectDatas == null) return result;
 
-    [Header("Effect")]
-    public EffectType effectType;
-    public float effectValue;
-    public float effectDuration;
-}
-public enum EffectType
-{
-    Normal,
-    Burn,
-    ArmorBreak,
-    Slow,
-    Explosion
+        for (int i = 0; i < effectDatas.Count; i++)
+        {
+            if (effectDatas[i] != null)
+                result.Add(effectDatas[i]);
+        }
+        return result;
+    }
 }

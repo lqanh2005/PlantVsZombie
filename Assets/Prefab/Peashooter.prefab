@@ -157,9 +157,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80cfc196901a35945b0e2410ab6e117f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Peashooter
-  plantId: 1
-  plantType: 0
-  effectType: 0
   zombieLayer:
     serializedVersion: 2
     m_Bits: 64

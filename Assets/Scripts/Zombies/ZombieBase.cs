@@ -1,5 +1,4 @@
 using DG.Tweening;
-using NUnit.Framework.Internal;
 using UnityEngine;
 
 [RequireComponent(typeof(EnemyAnimation))]
@@ -7,8 +6,6 @@ using UnityEngine;
 [RequireComponent(typeof(EffectController))]
 public abstract class ZombieBase : MonoBehaviour, ITakeDamage, IStatusEffectReceiver
 {
-    [SerializeField] protected int enemyId;
-    [SerializeField] protected EnemyType enemyType;
     [SerializeField] protected float currentHealth;
     [SerializeField] protected EnemyAnimation animator;
     [SerializeField] protected EffectController effectController;
@@ -27,6 +24,7 @@ public abstract class ZombieBase : MonoBehaviour, ITakeDamage, IStatusEffectRece
     protected float attackTimer;
     protected float houseX;
     protected DamageFlash damageFlash;
+    private Collider[] colliders;
     public bool isAlive { get; private set; }
     public bool IsAlive => isAlive;
 
@@ -42,6 +40,16 @@ public abstract class ZombieBase : MonoBehaviour, ITakeDamage, IStatusEffectRece
     protected virtual void Awake()
     {
         CacheComponents();
+        colliders = GetComponentsInChildren<Collider>(true);
+    }
+
+    protected void SetCollidersEnabled(bool enabled)
+    {
+        foreach (Collider col in colliders)
+        {
+            if (col != null)
+                col.enabled = enabled;
+        }
     }
 
     private void CacheComponents()
@@ -60,23 +68,30 @@ public abstract class ZombieBase : MonoBehaviour, ITakeDamage, IStatusEffectRece
             damageFlash.Play();
     }
 
-    public virtual void Init()
+    public virtual void Init(EnemyData data)
     {
-        data = EnemyDataBase.Instance.GetEnemyData(enemyType, enemyId);
-        if (data == null)
+        if (!IsValidData(data))
         {
+            Debug.LogError($"{name}: EnemyData không hợp lệ ({(data != null ? data.GetType().Name : "null")}).");
             isAlive = false;
             SimplePool.Despawn(gameObject);
             return;
         }
 
+        this.data = data;
         transform.rotation = Quaternion.LookRotation(Vector3.left) * Quaternion.Euler(0f, modelYawOffset, 0f);
         currentHealth = data.health;
         attackTimer = 0f;
         houseX = GetHouseX();
         isAlive = true;
+        SetCollidersEnabled(true);
         effectController.ClearAllEffects();
         animator.ResetState();
+    }
+
+    protected virtual bool IsValidData(EnemyData data)
+    {
+        return data != null;
     }
 
     protected virtual void Update()
@@ -194,6 +209,7 @@ public abstract class ZombieBase : MonoBehaviour, ITakeDamage, IStatusEffectRece
     protected virtual void Die()
     {
         isAlive = false;
+        SetCollidersEnabled(false);
         effectController.ClearAllEffects();
         animator.Die();
         DOVirtual.DelayedCall(1f, () => SimplePool.Despawn(gameObject)).SetLink(gameObject);

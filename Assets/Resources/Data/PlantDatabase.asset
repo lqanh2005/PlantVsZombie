@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7df213d7a554e9345a20b701d481e0b4, type: 3}
   m_Name: PlantDatabase
   m_EditorClassIdentifier: Assembly-CSharp::PlantDatabase
-  shooterPlantDataList: {fileID: 11400000, guid: 7dc08f9b6ad4ce04da94222d1e6b4a72, type: 2}
-  sunProducerDataList: {fileID: 11400000, guid: f27d4fd635228a348af500a3297a2a1b, type: 2}
-  defenderPlantDataList: {fileID: 11400000, guid: add33fa23fc9b7045b69492652235ef7, type: 2}
   plantDatas:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 2ee7df5fad7bddc40a74803f06d17158, type: 2}
+  - {fileID: 11400000, guid: 96b84c8d709fce345b61fb0654af8f0a, type: 2}
+  - {fileID: 11400000, guid: b7d693a9da59a0541b49e52b63c5a106, type: 2}
+  - {fileID: 11400000, guid: ee0b459abdead184b84530368fc8ab0c, type: 2}
+  - {fileID: 11400000, guid: 010b41db97be49349a8ab7dcd39cb740, type: 2}

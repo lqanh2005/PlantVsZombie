@@ -1,36 +1,44 @@
 using System.Collections.Generic;
 using UnityEngine;
+
 [CreateAssetMenu(fileName = "PlantDatabase", menuName = "Plants/PlantDatabase", order = 1)]
 public class PlantDatabase : SingletonScriptableObject<PlantDatabase>
 {
-    public ShooterPlantDataList shooterPlantDataList;
-    public SunProducerDataList sunProducerDataList;
-    public DefenderPlantDataList defenderPlantDataList;
-
-
     [SerializeField] List<PlantData> plantDatas = new List<PlantData>();
 
-    Dictionary<PlantType, List<PlantData>> plantDataDictionary = new Dictionary<PlantType, List<PlantData>>();
+    readonly Dictionary<PlantType, List<PlantData>> plantDataDictionary = new Dictionary<PlantType, List<PlantData>>();
+
     private void OnEnable()
+    {
+        BuildDictionary();
+    }
+
+    private void OnValidate()
+    {
+        BuildDictionary();
+    }
+
+    private void BuildDictionary()
     {
         plantDataDictionary.Clear();
         if (plantDatas == null) return;
+
         foreach (PlantData plantData in plantDatas)
         {
             if (plantData == null) continue;
 
-            if (!plantDataDictionary.ContainsKey(plantData.plantType))
+            if (!plantDataDictionary.TryGetValue(plantData.plantType, out List<PlantData> list))
             {
-                plantDataDictionary[plantData.plantType] = new List<PlantData>();
+                list = new List<PlantData>();
+                plantDataDictionary[plantData.plantType] = list;
             }
-            plantDataDictionary[plantData.plantType].Add(plantData);
+            list.Add(plantData);
         }
     }
 
     public PlantData GetPlantDataByType(PlantType plantType, int index)
     {
-        IReadOnlyList<PlantData> list = GetList(plantType);
-        if (list == null || index < 0 || index >= list.Count)
+        if (!plantDataDictionary.TryGetValue(plantType, out List<PlantData> list) || index < 0 || index >= list.Count)
         {
             Debug.LogError($"Plant data not found: type {plantType}, index {index}.");
             return null;
@@ -40,8 +48,7 @@ public class PlantDatabase : SingletonScriptableObject<PlantDatabase>
 
     public PlantData GetPlantData(PlantType plantType, int plantId)
     {
-        IReadOnlyList<PlantData> list = GetList(plantType);
-        if (list != null)
+        if (plantDataDictionary.TryGetValue(plantType, out List<PlantData> list))
         {
             for (int i = 0; i < list.Count; i++)
             {
@@ -54,42 +61,21 @@ public class PlantDatabase : SingletonScriptableObject<PlantDatabase>
         return null;
     }
 
-    private IReadOnlyList<PlantData> GetList(PlantType plantType)
+    public T GetPlantData<T>(PlantType plantType, int plantId) where T : PlantData
     {
-        switch (plantType)
-        {
-            case PlantType.Shooter:
-                return shooterPlantDataList != null ? shooterPlantDataList.shooterPlantDataList : null;
-            case PlantType.SunProducer:
-                return sunProducerDataList != null ? sunProducerDataList.sunProducerDataList : null;
-            case PlantType.Defense:
-                return defenderPlantDataList != null ? defenderPlantDataList.defenderPlantDataList : null;
-            default:
-                return null;
-        }
+        return GetPlantData(plantType, plantId) as T;
     }
+
     public List<PlantData> GetAllPlantData()
     {
         List<PlantData> result = new List<PlantData>();
+        if (plantDatas == null) return result;
 
-        AddRangeIfNotNull(result, shooterPlantDataList?.shooterPlantDataList);
-        AddRangeIfNotNull(result, sunProducerDataList?.sunProducerDataList);
-        AddRangeIfNotNull(result, defenderPlantDataList?.defenderPlantDataList);
-
-        return result;
-    }
-
-    private void AddRangeIfNotNull(
-        List<PlantData> result,
-        IReadOnlyList<PlantData> source)
-    {
-        if (source == null)
-            return;
-
-        for (int i = 0; i < source.Count; i++)
+        for (int i = 0; i < plantDatas.Count; i++)
         {
-            if (source[i] != null)
-                result.Add(source[i]);
+            if (plantDatas[i] != null)
+                result.Add(plantDatas[i]);
         }
+        return result;
     }
 }

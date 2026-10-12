@@ -157,8 +157,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6fdad92d1c32aa47b61258e3d862bb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sunflower
-  plantId: 1
-  plantType: 2
   currentHealth: 0
   sunProducerData:
     plantId: 0

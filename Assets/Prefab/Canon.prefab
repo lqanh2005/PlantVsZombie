@@ -157,9 +157,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 509e5ac9e8c0e9e42a8459a1e8d3ddb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExploseShooter
-  plantId: 3
-  plantType: 0
-  effectType: 4
   zombieLayer:
     serializedVersion: 2
     m_Bits: 64

@@ -125,8 +125,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 881477f6745da534da296d103d472bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Wallnut
-  plantId: 1
-  plantType: 4
   currentHealth: 0
   laneHalfWidth: 0.4
   detectHeight: 2

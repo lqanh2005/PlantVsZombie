@@ -8,6 +8,11 @@ public abstract class MeleeEnemyBase : ZombieBase
     protected override float AttackRange => attackRange;
     protected override float AttackCooldown => MeleeData.attackCooldown;
 
+    protected override bool IsValidData(EnemyData data)
+    {
+        return data is MeleEnemyData;
+    }
+
     protected override void Attack(PlantBase target)
     {
         target.TakeDamage(MeleeData.damage);

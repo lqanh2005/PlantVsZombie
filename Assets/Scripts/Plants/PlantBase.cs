@@ -2,9 +2,6 @@ using UnityEngine;
 
 public abstract class PlantBase : MonoBehaviour, ITakeDamage
 {
-    [SerializeField] protected int plantId;
-    [SerializeField] protected PlantType plantType;
-    [SerializeField] protected EffectType effectType;
     [SerializeField] protected LayerMask zombieLayer;
     [SerializeField] protected float currentHealth;
 
@@ -15,6 +12,7 @@ public abstract class PlantBase : MonoBehaviour, ITakeDamage
     protected PlantData data;
     protected DamageFlash damageFlash;
     public bool isAlive { get; private set; }
+    public bool IsAlive => isAlive;
     public int Row { get; private set; } = -1;
     public int Col { get; private set; } = -1;
 
@@ -25,18 +23,24 @@ public abstract class PlantBase : MonoBehaviour, ITakeDamage
             damageFlash = gameObject.AddComponent<DamageFlash>();
     }
 
-    public virtual void Init()
+    public virtual void Init(PlantData data)
     {
-        data = PlantDatabase.Instance.GetPlantData(plantType, plantId);
-        if (data == null)
+        if (!IsValidData(data))
         {
+            Debug.LogError($"{name}: PlantData không hợp lệ ({(data != null ? data.GetType().Name : "null")}).");
             isAlive = false;
             SimplePool.Despawn(gameObject);
             return;
         }
 
+        this.data = data;
         currentHealth = data.health;
         isAlive = true;
+    }
+
+    protected virtual bool IsValidData(PlantData data)
+    {
+        return data != null;
     }
 
     public void SetCell(int row, int col)
@@ -76,14 +80,23 @@ public abstract class PlantBase : MonoBehaviour, ITakeDamage
     {
         Vector3 origin = transform.position + Vector3.up * (detectHeight * 0.5f);
         Vector3 direction = Vector3.right;
-        if (Physics.Raycast(origin, direction, out RaycastHit hit, range, zombieLayer, QueryTriggerInteraction.Collide))
-        {
-            ZombieBase zombie = hit.collider.GetComponentInParent<ZombieBase>();
+        RaycastHit[] hits = Physics.RaycastAll(origin, direction, range, zombieLayer, QueryTriggerInteraction.Collide);
 
-            if (zombie != null && zombie.isAlive)
-                return zombie;
+        ZombieBase nearest = null;
+        float nearestDistance = float.MaxValue;
+        foreach (RaycastHit hit in hits)
+        {
+            if (hit.distance >= nearestDistance)
+                continue;
+
+            ZombieBase zombie = hit.collider.GetComponentInParent<ZombieBase>();
+            if (zombie == null || !zombie.isAlive)
+                continue;
+
+            nearest = zombie;
+            nearestDistance = hit.distance;
         }
 
-        return null;
+        return nearest;
     }
 }

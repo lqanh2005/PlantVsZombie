@@ -8,10 +8,12 @@ public class ZombieSpawner : MonoBehaviour
     {
     }
 
-    public ZombieBase SpawnZombie(GameObject zombiePrefab, int row = -1)
+    public ZombieBase SpawnZombie(EnemyData enemyData, int row = -1)
     {
-        if (zombiePrefab == null)
+        if (enemyData == null || enemyData.enemyPrefab == null)
             return null;
+
+        GameObject zombiePrefab = enemyData.enemyPrefab;
 
         GridController grid = GamePlayController.Instance.playerContain.grid;
         if (row < 0 || row >= grid.Rows)
@@ -22,9 +24,12 @@ public class ZombieSpawner : MonoBehaviour
 
         ZombieBase zombie = zombieObject.GetComponent<ZombieBase>();
         if (zombie == null)
+        {
+            SimplePool.Despawn(zombieObject);
             return null;
+        }
 
-        zombie.Init();
+        zombie.Init(enemyData);
         return zombie;
     }
 }

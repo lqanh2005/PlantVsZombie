@@ -295,8 +295,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea0682d00f5383242a22545b5e36f7ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CowboyEnemy
-  enemyId: 1
-  enemyType: 0
   currentHealth: 0
   animator: {fileID: 7239668941765848127}
   effectController: {fileID: 7807096060824342882}

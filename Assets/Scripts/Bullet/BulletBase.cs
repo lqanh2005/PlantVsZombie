@@ -29,20 +29,9 @@ public abstract class BulletBase : MonoBehaviour
         }
     }
 
-    public virtual void Init(EffectType effectType)
+    public virtual void Init(float damage, Vector3 direction, float speed, EffectData effect = null)
     {
-        effectData = EffectDataList.Instance.GetEffectDataByType(effectType);
-        if (effectData == null)
-        {
-            SimplePool.Despawn(gameObject);
-            return;
-        }
-
-        Setup(effectData.damage, Vector3.right, effectData.speed);
-    }
-
-    private void Setup(float damage, Vector3 direction, float speed)
-    {
+        effectData = effect;
         this.damage = damage;
         this.direction = direction.normalized;
         this.speed = speed;
@@ -87,7 +76,7 @@ public abstract class BulletBase : MonoBehaviour
     {
         ITakeDamage target = other.GetComponentInParent<ITakeDamage>();
 
-        if (target == null)
+        if (target == null || !target.IsAlive)
             return false;
 
         if (effectData != null && target is IStatusEffectReceiver effectReceiver)

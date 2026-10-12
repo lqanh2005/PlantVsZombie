@@ -105,7 +105,7 @@ public class LevelController : MonoBehaviour
         int row = wave.rows.Count > 0 ? wave.rows[Random.Range(0, wave.rows.Count)] : -1;
 
         ZombieBase zombie = GamePlayController.Instance.playerContain.zombieSpawner
-            .SpawnZombie(enemyData.enemyPrefab, row);
+            .SpawnZombie(enemyData, row);
 
         if (zombie != null && zombie.isAlive)
             currentZombies.Add(zombie);

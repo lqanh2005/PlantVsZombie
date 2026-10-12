@@ -12,15 +12,20 @@ public abstract class TankEnemyBase : ZombieBase
     protected override float AttackCooldown => TankData.attackCooldown;
     public bool HasArmor => currentArmorHealth > 0f;
 
-    public override void Init()
+    public override void Init(EnemyData data)
     {
-        base.Init();
+        base.Init(data);
         if (!isAlive)
             return;
 
         currentArmorHealth = TankData.armorHealth;
         if (armorVisual != null)
             armorVisual.SetActive(true);
+    }
+
+    protected override bool IsValidData(EnemyData data)
+    {
+        return data is TankEnemyData;
     }
 
     protected override void Attack(PlantBase target)

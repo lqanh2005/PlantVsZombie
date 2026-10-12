@@ -25,40 +25,35 @@ public class PlantCard : MonoBehaviour
     private Color currentTint = Color.white;
     private bool isSelected;
 
+    public PlantData Data { get; private set; }
     public int SunCost => sunCost;
     public bool IsCoolingDown => cooldownTimer > 0f;
     public bool CanAfford => sunManager == null || sunManager.CanAfford(sunCost);
     public bool IsSelectable => !IsCoolingDown && CanAfford;
 
-    public void Init(int id, Sprite sprite, int sunCost)
-    {
-        plantId = id;
-        plantImage.sprite = sprite;
-        this.sunCost = sunCost;
-        sunTxt.text = sunCost.ToString();
-        rechargeTime = 0f;
-        Setup();
-    }
-
-    public void Init()
-    {
-        Setup(PlantDatabase.Instance.GetPlantDataByType(plantType, plantId));
-    }
-
     public void Init(PlantType type, int id)
     {
-        plantType = type;
-        plantId = id;
-        Setup(PlantDatabase.Instance.GetPlantData(type, id));
-    }
-
-    private void Setup(PlantData data)
-    {
+        PlantData data = PlantDatabase.Instance.GetPlantData(type, id);
         if (data == null)
         {
+            plantType = type;
+            plantId = id;
+        }
+        Init(data);
+    }
+
+    public void Init(PlantData data)
+    {
+        Data = data;
+        if (data == null)
+        {
+            plantPrefab = null;
             btn.interactable = false;
             return;
         }
+
+        plantType = data.plantType;
+        plantId = data.plantId;
 
         plantImage.sprite = data.icon;
         sunCost = data.sunCost;

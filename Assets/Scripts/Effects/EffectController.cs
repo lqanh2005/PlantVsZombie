@@ -96,6 +96,8 @@ public class EffectController : MonoBehaviour
                 return new SlowEffect();
             case EffectType.ArmorBreak:
                 return new ArmorBreakEffect();
+            case EffectType.Explosion:
+                return null;
             default:
                 Debug.LogWarning($"Unsupported effect type: {type}");
                 return null;

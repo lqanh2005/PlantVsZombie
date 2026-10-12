@@ -10,13 +10,18 @@ public abstract class SunProducerPlantBase : PlantBase
 
     protected SunProducerData SunData => (SunProducerData)data;
 
-    public override void Init()
+    public override void Init(PlantData data)
     {
-        base.Init();
+        base.Init(data);
         if (!isAlive)
             return;
 
         produceTimer = Mathf.Min(firstSunDelay, SunData.productionInterval);
+    }
+
+    protected override bool IsValidData(PlantData data)
+    {
+        return data is SunProducerData;
     }
 
     protected virtual void Update()

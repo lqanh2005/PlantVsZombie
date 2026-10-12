@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2152484129971802634}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RigSpine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8879388771430962779}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RigTail3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2520751662843798017}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RigCapeBack1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 8854119382732217697}
   - component: {fileID: 4838125808774944903}
   - component: {fileID: 7602004669014792979}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Gloom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -169,8 +169,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea5741f8ac2227540b1d9f954ce9b631, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PirateEnemy
-  enemyId: 1
-  enemyType: 1
   currentHealth: 0
   animator: {fileID: 8854119382732217697}
   effectController: {fileID: 7602004669014792979}
@@ -254,7 +252,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5004883321733450732}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RigHead
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -285,7 +283,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1532477091165949250}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RigNeck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -317,7 +315,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3840693036236981998}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RigPelvis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -350,7 +348,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3243020340297596378}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RigCapeL1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -381,7 +379,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 894478386848596546}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SpawnBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -412,7 +410,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4234485414440920308}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Rig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -443,7 +441,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4400486743050570762}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RigRibcage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -479,7 +477,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8658189228117290885}
   - component: {fileID: 8715490746974180500}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Gloom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -580,7 +578,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2945712030258255847}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RigTail1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -612,7 +610,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4432817195784773255}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RigCapeR1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -643,7 +641,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1816012664341734731}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RigTail2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

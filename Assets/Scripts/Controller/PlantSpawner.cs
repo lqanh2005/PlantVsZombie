@@ -4,9 +4,8 @@ using UnityEngine.InputSystem;
 
 public class PlantSpawner : MonoBehaviour
 {
-    public GameObject selectedPlantPool;
     [SerializeField] private Vector3 spawnOffset = new Vector3(0f, 0.5f, 0f);
-    private int selectedSunCost;
+    private PlantData selectedPlantData;
     private PlantCard selectedCard;
     private bool[,] occupied;
 
@@ -30,26 +29,24 @@ public class PlantSpawner : MonoBehaviour
 
     public void SelectPlant(PlantCard card)
     {
-        if (card == null || !card.IsSelectable)
+        if (card == null || !card.IsSelectable || card.Data == null)
             return;
 
-        SelectPlant(card.plantPrefab, card.SunCost);
+        SelectPlant(card.Data);
         selectedCard = card;
         selectedCard.SetSelected(true);
     }
 
-    public void SelectPlant(GameObject plantPrefab, int sunCost = 0)
+    public void SelectPlant(PlantData data)
     {
         SetSelectedCard(null);
-        selectedPlantPool = plantPrefab;
-        selectedSunCost = sunCost;
+        selectedPlantData = data;
     }
 
     private void ClearSelection()
     {
         SetSelectedCard(null);
-        selectedPlantPool = null;
-        selectedSunCost = 0;
+        selectedPlantData = null;
     }
 
     private void SetSelectedCard(PlantCard card)
@@ -57,6 +54,11 @@ public class PlantSpawner : MonoBehaviour
         if (selectedCard != null)
             selectedCard.SetSelected(false);
         selectedCard = card;
+    }
+
+    private static bool IsPlaying()
+    {
+        return GamePlayController.Instance.stateGame == StateGame.Playing;
     }
 
     public void FreeCell(int row, int col)
@@ -68,7 +70,10 @@ public class PlantSpawner : MonoBehaviour
 
     private void Update()
     {
-        if (selectedPlantPool == null)
+        if (!IsPlaying())
+            return;
+
+        if (selectedPlantData == null)
             return;
 
         if (Mouse.current == null)
@@ -86,7 +91,7 @@ public class PlantSpawner : MonoBehaviour
         if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
             return;
 
-        if (!TryPlantAtScreenPosition(Mouse.current.position.ReadValue(), selectedPlantPool))
+        if (!TryPlantAtScreenPosition(Mouse.current.position.ReadValue(), selectedPlantData))
             return;
 
         if (selectedCard != null)
@@ -94,9 +99,9 @@ public class PlantSpawner : MonoBehaviour
         ClearSelection();
     }
 
-    public bool TryPlantAtScreenPosition(Vector2 screenPosition, GameObject plantPrefab)
+    public bool TryPlantAtScreenPosition(Vector2 screenPosition, PlantData plantData)
     {
-        if (plantPrefab == null)
+        if (!IsPlaying() || plantData == null || plantData.plantPrefab == null)
             return false;
 
         Camera cam = Camera.main;
@@ -123,10 +128,10 @@ public class PlantSpawner : MonoBehaviour
             return false;
 
         SunManager sunManager = playerContain.sunManager;
-        if (sunManager != null && !sunManager.CanAfford(selectedSunCost))
+        if (sunManager != null && !sunManager.CanAfford(plantData.sunCost))
             return false;
 
-        GameObject plantObject = SimplePool.Spawn(plantPrefab, grid.GetCellCenterWorld(row, col) + spawnOffset, Quaternion.identity);
+        GameObject plantObject = SimplePool.Spawn(plantData.plantPrefab, grid.GetCellCenterWorld(row, col) + spawnOffset, Quaternion.identity);
         PlantBase plant = plantObject.GetComponent<PlantBase>();
         if (plant == null)
         {
@@ -135,12 +140,12 @@ public class PlantSpawner : MonoBehaviour
         }
 
         plant.SetCell(row, col);
-        plant.Init();
+        plant.Init(plantData);
         if (!plant.isAlive)
             return false;
 
         if (sunManager != null)
-            sunManager.TrySpend(selectedSunCost);
+            sunManager.TrySpend(plantData.sunCost);
 
         occupied[row, col] = true;
         return true;
