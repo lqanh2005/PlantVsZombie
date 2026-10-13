@@ -1714,7 +1714,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4dccd44874d71543891690e54fd551f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlantSpawner
-  selectedPlantPool: {fileID: 0}
   spawnOffset: {x: 0, y: 0.5, z: 0}
 --- !u!1 &595976780
 GameObject:
